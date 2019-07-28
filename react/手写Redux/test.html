@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="num1"></div>
+  <div id="num2"></div>
+  <button id="add">add</button>
+  <button id="sub">sub</button>
+</body>
+<!--<script src="./redux.js"></script>-->
+<script src="./my-redux.js"></script>
+<script>
+  var redux = window.redux
+  var num1 = document.querySelector('#num1')
+  var num2 = document.querySelector('#num2')
+  var add = document.querySelector('#add')
+  var sub = document.querySelector('#sub')
+
+  const reducer1 = (state = 0, action) => {
+    switch (action.type) {
+      case 'INCREMENT': return state + 1;
+      default: return state;
+    }
+  };
+  const reducer2 = (state = 0, action) => {
+    switch (action.type) {
+      case 'DECREMENT': return state - 1;
+      default: return state;
+    }
+  };
+  const combineReducers = redux.combineReducers
+
+  const reducer = combineReducers({ reducer1, reducer2})
+
+  function log({getState, dispatch}) {
+    return (next) => (action) => {
+      console.log('log before', action, dispatch)
+      let returnValue = next(action)
+      console.log('log after')
+
+      return returnValue
+    }
+  }
+
+  function thunk({getState, dispatch}) {
+    return (next) => (action) => {
+      console.log('thunk before', action)
+      if (typeof action === 'function') {
+        return action(dispatch, getState);
+      }
+
+      return next(action)
+    }
+  }
+
+  const applyMiddleware = redux.applyMiddleware
+  const store = redux.createStore(reducer, {reducer1: 1, reducer2: 2}, applyMiddleware(log, thunk));
+
+  const render = () => {
+    const state = store.getState()
+    num1.innerHTML = state.reducer1
+    num2.innerHTML = state.reducer2
+  };
+
+  add.addEventListener('click', function () {
+    store.dispatch({type: 'INCREMENT'})
+  })
+  sub.addEventListener('click', function () {
+    store.dispatch((dispatch, getState) => {
+      setTimeout(() => {
+        dispatch({type: 'DECREMENT'})
+      }, 1000)
+    })
+  })
+
+  render();
+  store.subscribe(render);
+</script>
+</html>
