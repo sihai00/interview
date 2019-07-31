@@ -12,6 +12,8 @@
 [实现 sleep 函数](https://github.com/sihai00/interview/issues/15)  
 [运算优先级](https://github.com/sihai00/interview/issues/20)  
 [设计 LazyMan 类](https://github.com/sihai00/interview/issues/22)  
+[模拟实现一个 Promise.finally](https://github.com/sihai00/interview/issues/25)  
+[生成随机数](https://github.com/sihai00/interview/issues/27)  
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  
@@ -21,6 +23,9 @@
 ## react
 [Flux、Redux、Redux-saga、Dva、MobX](https://github.com/sihai00/interview/issues/7)    
 [手写Redux](https://github.com/sihai00/interview/issues/13)  
+
+## webpack
+[babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
 
 ## 浏览器
 [浏览器和Node 事件循环的区别](https://github.com/sihai00/interview/issues/8)    
