@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="example" name="example">
+  <textarea readonly class="event-log-contents" rows="8" cols="25"></textarea>
+  <button class="clear-log">Clear</button>
+</body>
+<script>
+  const inputElement = document.querySelector('input[type="text"]');
+  const log = document.querySelector('.event-log-contents');
+  const clearLog = document.querySelector('.clear-log');
+
+  clearLog.addEventListener('click', () => {
+    log.textContent = '';
+  });
+
+  function handleEvent(event) {
+    log.textContent = log.textContent + `${event.type}: ${event.data || event.target.value}\n`;
+  }
+
+  inputElement.addEventListener('compositionstart', handleEvent);
+  inputElement.addEventListener('compositionupdate', handleEvent);
+  inputElement.addEventListener('compositionend', handleEvent);
+  inputElement.addEventListener('input', handleEvent);
+  inputElement.addEventListener('change', handleEvent);
+  inputElement.addEventListener('blur', handleEvent);
+</script>
+</html>

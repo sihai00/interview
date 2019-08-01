@@ -1,4 +1,4 @@
-## 模拟实现一个 Promise.finally
+## 手写Promise.finally
 finally方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。它的回调函数不接受任何参数，一般用于结束状态。
 ```javascript
 promise

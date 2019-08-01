@@ -12,8 +12,11 @@
 [实现 sleep 函数](https://github.com/sihai00/interview/issues/15)  
 [运算优先级](https://github.com/sihai00/interview/issues/20)  
 [设计 LazyMan 类](https://github.com/sihai00/interview/issues/22)  
-[模拟实现一个 Promise.finally](https://github.com/sihai00/interview/issues/25)  
+[手写Promise.finally](https://github.com/sihai00/interview/issues/25)  
+[手写Promise.all](https://github.com/sihai00/interview/issues/31)  
 [生成随机数](https://github.com/sihai00/interview/issues/27)  
+[对象键名的转换](https://github.com/sihai00/interview/issues/29)  
+[监听中文输入](https://github.com/sihai00/interview/issues/30)  
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  
@@ -23,6 +26,7 @@
 ## react
 [Flux、Redux、Redux-saga、Dva、MobX](https://github.com/sihai00/interview/issues/7)    
 [手写Redux](https://github.com/sihai00/interview/issues/13)  
+[手写双向绑定](https://github.com/sihai00/interview/issues/28)  
 
 ## webpack
 [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
@@ -31,6 +35,7 @@
 [浏览器和Node 事件循环的区别](https://github.com/sihai00/interview/issues/8)    
 [缓存位置](https://github.com/sihai00/interview/issues/10)  
 [https](https://github.com/sihai00/interview/issues/16)  
+[监听中文输入]()  
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)  
