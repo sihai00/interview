@@ -10,7 +10,7 @@ promise
 ## 实现
 原理：不管成功或者失败都调用。
 ```javascript
-Promise.prototype.finally = function (callback) {
+Promise.finally = function (callback) {
   let P = this.constructor;
   return this.then(
     value  => P.resolve(callback()).then(() => value),

@@ -14,6 +14,7 @@
 [设计 LazyMan 类](https://github.com/sihai00/interview/issues/22)  
 [手写Promise.finally](https://github.com/sihai00/interview/issues/25)  
 [手写Promise.all](https://github.com/sihai00/interview/issues/31)  
+[手写Promise.race](https://github.com/sihai00/interview/issues/32)  
 [生成随机数](https://github.com/sihai00/interview/issues/27)  
 [对象键名的转换](https://github.com/sihai00/interview/issues/29)  
 [监听中文输入](https://github.com/sihai00/interview/issues/30)  
