@@ -2,6 +2,7 @@
 面试相关知识点消化汇总
 
 ## javascript
+[类型转换](./javascript/类型转换.md)
 [[] == ![] 输出什么？](https://github.com/sihai00/interview/issues/1)  
 [箭头函数和普通函数的区别？](https://github.com/sihai00/interview/issues/2)  
 [this的指向](https://github.com/sihai00/interview/issues/3)  
@@ -18,6 +19,7 @@
 [生成随机数](https://github.com/sihai00/interview/issues/27)  
 [对象键名的转换](https://github.com/sihai00/interview/issues/29)  
 [监听中文输入](https://github.com/sihai00/interview/issues/30)  
+[实现深拷贝](https://github.com/sihai00/interview/issues/33)  
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  
@@ -49,3 +51,7 @@
 ## 项目
 [大公司里怎样开发和部署前端代码？](https://github.com/sihai00/interview/issues/9)  
 [为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片？](https://github.com/sihai00/interview/issues/18)  
+
+## 精度 ECMAScript 6 入门 - 阮一峰
+[let和const 命令](./精读阮一峰ECMAScript6/let和const命令.md)
+[变量的解构赋值](./精读阮一峰ECMAScript6/变量的解构赋值.md)
