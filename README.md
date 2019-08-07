@@ -55,3 +55,5 @@
 ## 精度 ECMAScript 6 入门 - 阮一峰
 [let和const 命令](./精读阮一峰ECMAScript6/let和const命令.md)
 [变量的解构赋值](./精读阮一峰ECMAScript6/变量的解构赋值.md)
+[字符串的扩展](./精读阮一峰ECMAScript6/字符串的扩展.md)
+[字符串的新增方法](./精读阮一峰ECMAScript6/字符串的新增方法.md)
