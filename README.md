@@ -38,7 +38,7 @@
 [浏览器和Node 事件循环的区别](https://github.com/sihai00/interview/issues/8)    
 [缓存位置](https://github.com/sihai00/interview/issues/10)  
 [https](https://github.com/sihai00/interview/issues/16)  
-[监听中文输入]()  
+[监听中文输入](./html/监听中文输入/监听中文输入.md)  
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)  
@@ -57,3 +57,10 @@
 [变量的解构赋值](./精读阮一峰ECMAScript6/变量的解构赋值.md)
 [字符串的扩展](./精读阮一峰ECMAScript6/字符串的扩展.md)
 [字符串的新增方法](./精读阮一峰ECMAScript6/字符串的新增方法.md)
+[正则的扩展](./精读阮一峰ECMAScript6/正则的扩展.md)
+[数值的扩展](./精读阮一峰ECMAScript6/数值的扩展.md)
+[数组的扩展](./精读阮一峰ECMAScript6/数组的扩展.md)
+[对象的扩展](./精读阮一峰ECMAScript6/对象的扩展.md)
+[对象的新增方法](./精读阮一峰ECMAScript6/对象的新增方法.md)
+[Module的语法](./精读阮一峰ECMAScript6/Module的语法.md)
+[Module的加载实现](./精读阮一峰ECMAScript6/Module的加载实现.md)
