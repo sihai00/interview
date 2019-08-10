@@ -126,6 +126,7 @@ import * as baz from './a';
 
 - CommonJS 模块的输出缓存机制，在 ES6 加载方式下依然有效
 - import命令加载 CommonJS 模块时，只能整体输入 
+
 ```javascript
 module.exports = 123;
 setTimeout(_ => module.exports = null);
@@ -154,4 +155,111 @@ console.log(es_namespace.default);
 // { bar:'my-default' }
 ```
 
+## 4.循环加载
+a脚本的执行依赖b脚本，而b脚本的执行又依赖a脚本
+```javascript
+// a.js
+var b = require('b');
 
+// b.js
+var a = require('a');
+```
+
+### 4.1 CommonJS 模块的加载原理
+CommonJS 的一个模块，就是一个脚本文件。require命令第一次加载该脚本，在内存生成一个对象。再次加载该脚本时，直接从内存取该对象
+```javascript
+{
+  id: '...',
+  exports: { ... },
+  loaded: true,
+  ...
+}
+```
+
+### 4.2 CommonJS 模块的循环加载
+```javascript
+// a.js
+exports.done = false;
+var b = require('./b.js');
+console.log('在 a.js 之中，b.done = %j', b.done);
+exports.done = true;
+console.log('a.js 执行完毕');
+
+// b.js
+exports.done = false;
+var a = require('./a.js');
+console.log('在 b.js 之中，a.done = %j', a.done);
+exports.done = true;
+console.log('b.js 执行完毕');
+
+// main.js
+var a = require('./a.js');
+var b = require('./b.js');
+console.log('在 main.js 之中, a.done=%j, b.done=%j', a.done, b.done);
+
+// 结果
+// 在 b.js 之中，a.done = false
+// b.js 执行完毕
+// 在 a.js 之中，b.done = true
+// a.js 执行完毕
+// 在 main.js 之中, a.done=true, b.done=true
+```
+流程：
+1. var a = require('./a.js')，缓存中生成a.js模块的对象
+1. a.js的exports.done = false
+2. 加载b.js，a.js暂停
+3. b.js的exports.done = false
+4. 加载a.js，直接读取缓存中a.js模块的对象
+5. b.js的exports.done = true。b.js执行完毕，返回a.js
+6. a.js的exports.done = true，a.js执行完毕
+
+### 4.3 ES6 模块的循环加载
+```javascript
+
+// a.mjs
+import {bar} from './b';
+console.log('a.mjs');
+console.log(bar);
+export let foo = 'foo';
+
+// b.mjs
+import {foo} from './a';
+console.log('b.mjs');
+console.log(foo);
+export let bar = 'bar';
+
+// 执行a.mjs
+
+// 结果：
+// b.mjs
+// ReferenceError: foo is not defined
+```
+1. 执行a.mjs以后，引擎发现它加载了b.mjs，因此会优先执行b.mjs
+2. 执行b.mjs的时候，已知它从a.mjs输入了foo接口，这时不会去执行a.mjs，而是认为这个接口已经存在了，继续往下执行。
+3. 执行到第三行console.log(foo)的时候，才发现这个接口根本没定义，因此报错
+
+解决办法：声明的函数提升
+```javascript
+// a.mjs
+import {bar} from './b';
+console.log('a.mjs');
+console.log(bar());
+function foo() { return 'foo' }
+export {foo};
+
+// b.mjs
+import {foo} from './a';
+console.log('b.mjs');
+console.log(foo());
+function bar() { return 'bar' }
+export {bar};
+
+// 执行a.mjs
+// b.mjs
+// foo
+// a.mjs
+// bar
+```
+
+## 5.ES6 模块的转码
+SystemJS：可以在浏览器内加载 ES6 模块、AMD 模块和 CommonJS 模块，将其转为 ES5 格式。它在后台调用的是 Google 的 Traceur 转码器。
