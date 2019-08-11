@@ -79,3 +79,6 @@
 [22Class的继承](./精读阮一峰ECMAScript6/22Class的继承.md)
 [23Module的语法](./精读阮一峰ECMAScript6/23Module的语法.md)
 [24Module的加载实现](./精读阮一峰ECMAScript6/24Module的加载实现.md)
+[27异步遍历器](./精读阮一峰ECMAScript6/27异步遍历器.md)
+[28ArrayBuffer](./精读阮一峰ECMAScript6/28ArrayBuffer.md)
+[30装饰器](./精读阮一峰ECMAScript6/30装饰器.md)
