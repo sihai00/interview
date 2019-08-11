@@ -1,3 +1,11 @@
+## Object.setPrototypeOf
+```javascript
+Object.setPrototypeOf = function (obj, proto) {
+  obj.__proto__ = proto;
+  return obj;
+}
+```
+
 ## Object.is
 ```javascript
 Object.defineProperty(Object, 'is', {
@@ -107,4 +115,22 @@ let myObj = { foo: 3, bar: 7 };
 for (let [key, value] of iterEntries(myObj)) {
   console.log(key, value);
 }
+```
+## sleep
+```javascript
+function sleep(interval) {
+  return new Promise(resolve => {
+    setTimeout(resolve, interval);
+  })
+}
+
+// 用法
+async function one2FiveInAsync() {
+  for(let i = 1; i <= 5; i++) {
+    console.log(i);
+    await sleep(1000);
+  }
+}
+
+one2FiveInAsync();
 ```

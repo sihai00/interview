@@ -74,5 +74,8 @@
 [17Iterator和for...of循环](./精读阮一峰ECMAScript6/17Iterator和for...of循环.md)
 [18Generator函数的语法](./精读阮一峰ECMAScript6/18Generator函数的语法.md)
 [19Generator函数的异步应用](./精读阮一峰ECMAScript6/19Generator函数的异步应用.md)
+[20async函数](./精读阮一峰ECMAScript6/20async函数.md)
+[21Class的基本语法](./精读阮一峰ECMAScript6/21Class的基本语法.md)
+[22Class的继承](./精读阮一峰ECMAScript6/22Class的继承.md)
 [23Module的语法](./精读阮一峰ECMAScript6/23Module的语法.md)
 [24Module的加载实现](./精读阮一峰ECMAScript6/24Module的加载实现.md)
