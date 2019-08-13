@@ -72,7 +72,6 @@ function f(m) {
 f(x + 5);
 
 // 等同于
-
 var thunk = function () {
   return x + 5;
 };
@@ -97,7 +96,7 @@ var Thunk = function(fn){
 };
 
 // ES6版本
-const Thunk = function(fn) {
+var Thunk = function(fn) {
   return function (...args) {
     return function (callback) {
       return fn.call(this, ...args, callback);
@@ -108,7 +107,7 @@ const Thunk = function(fn) {
 function f(a, cb) {
   cb(a);
 }
-const ft = Thunk(f);
+var ft = Thunk(f);
 
 ft(1)(console.log) // 1
 ```

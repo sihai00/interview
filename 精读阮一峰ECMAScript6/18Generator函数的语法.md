@@ -438,46 +438,38 @@ it.next();
 ### 11.2 控制流管理
 改善代码流程（同步）
 ```javascript
-function* longRunningTask(value1) {
-  try {
-    var value2 = yield step1(value1);
-    var value3 = yield step2(value2);
-    var value4 = yield step3(value3);
-    var value5 = yield step4(value4);
-    // Do something with value4
-  } catch (e) {
-    // Handle any error from step1 through step4
-  }
+function* foo() {
+  yield 'a';
+  yield 'b';
 }
 
-scheduler(longRunningTask(initialValue));
+function* bar() {
+  yield 'x';
+  yield* foo();
+  yield 'y';
+}
 
-function scheduler(task) {
-  var taskObj = task.next(task.value);
-  // 如果Generator函数未结束，就继续调用
-  if (!taskObj.done) {
-    task.value = taskObj.value
-    scheduler(task);
-  }
+// 方案一
+function run(g){
+	var task = g.next()
+	console.log(task)
+	if (!task.done) {
+		run(g)
+	}
 }
-```
-```javascript
-function* iterateSteps(steps){
-  for (var i=0; i< steps.length; i++){
-    var step = steps[i];
-    yield step();
-  }
+var g = bar()
+run(g)
+// {value: "x", done: false}
+// {value: "a", done: false}
+// {value: "b", done: false}
+// {value: "y", done: false}
+// {value: undefined, done: true}
+
+// 方案二
+for(let i of bar()){
+	console.log(i)
 }
-function* iterateJobs(jobs){
-  for (var i=0; i< jobs.length; i++){
-    var job = jobs[i];
-    yield* iterateSteps(job.steps);
-  }
-}
-let jobs = [job1, job2, job3]
-for (var step of iterateJobs(jobs)){
-  console.log(step.id);
-}
+// x a b y
 ```
 
 ### 11.3 部署 Iterator 接口

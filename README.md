@@ -10,7 +10,7 @@
 [前端模块化](https://github.com/sihai00/interview/issues/9)  
 [实现flat函数](https://github.com/sihai00/interview/issues/12)  
 [伪数组和push方法](https://github.com/sihai00/interview/issues/17)  
-[实现 sleep 函数](https://github.com/sihai00/interview/issues/15)  
+[实现sleep函数](https://github.com/sihai00/interview/issues/15)  
 [运算优先级](https://github.com/sihai00/interview/issues/20)  
 [设计 LazyMan 类](https://github.com/sihai00/interview/issues/22)  
 [手写Promise.finally](https://github.com/sihai00/interview/issues/25)  
@@ -20,6 +20,10 @@
 [对象键名的转换](https://github.com/sihai00/interview/issues/29)  
 [监听中文输入](https://github.com/sihai00/interview/issues/30)  
 [实现深拷贝](https://github.com/sihai00/interview/issues/33)  
+[手写call函数和apply函数](./javascript/手写call函数和apply函数.md)  
+[手写bind函数](./javascript/手写bind函数.md)  
+[手写new](./javascript/手写new.md)
+[创建对象的方式](./javascript/创建对象的方式.md)
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  
@@ -54,6 +58,7 @@
 ## 项目
 [大公司里怎样开发和部署前端代码？](https://github.com/sihai00/interview/issues/9)  
 [为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片？](https://github.com/sihai00/interview/issues/18)  
+[移动端适配](项目/移动端适配/移动端适配/移动端适配.md)
 
 ## 精度 ECMAScript 6 入门 - 阮一峰
 [02let和const命令](./精读阮一峰ECMAScript6/02let和const命令.md)
@@ -81,4 +86,5 @@
 [24Module的加载实现](./精读阮一峰ECMAScript6/24Module的加载实现.md)
 [27异步遍历器](./精读阮一峰ECMAScript6/27异步遍历器.md)
 [28ArrayBuffer](./精读阮一峰ECMAScript6/28ArrayBuffer.md)
+[29最新提案](./精读阮一峰ECMAScript6/29最新提案.md)
 [30装饰器](./精读阮一峰ECMAScript6/30装饰器.md)

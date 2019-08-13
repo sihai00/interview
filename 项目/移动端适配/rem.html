@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>1px question</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" id="WebViewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <style>
+    .a{
+      width: 8rem;   /* 300px/37.5 */
+      height: 8rem; /* 300px/37.5 */
+      background-color:yellow;
+      border: 1px solid #000;
+    }
+  </style>
+  <script>
+    var viewport = document.querySelector("meta[name=viewport]");
+    const scale = 1 / window.devicePixelRatio
+    viewport.setAttribute('content', `width=device-width,initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`);
+
+    var docEl = document.documentElement;
+    var fontsize = docEl.clientWidth / 10 + 'px';
+    docEl.style.fontSize = fontsize;
+  </script>
+</head>
+<body>
+  <div class="a"></div>
+</body>
+</html>
