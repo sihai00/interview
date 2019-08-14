@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+  <title>debounce</title>
+  <style>
+    #container{
+      width: 100%; height: 200px; line-height: 200px; text-align: center; color: #fff; background-color: #444; font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div id="container"></div>
+<button id="button">点击取消debounce</button>
+<script>
+  function throttle1(fn, wait) {
+    var previous = 0
+
+    return function () {
+      var context = this
+      var args = arguments
+      var now = +new Date()
+
+      if (now - previous > wait) {
+        previous = now
+        fn.apply(context, args)
+      }
+    }
+  }
+
+  function throttle2(fn, wait) {
+    var timeout
+
+    return function () {
+      var context = this
+      var args = arguments
+
+      if (!timeout) {
+        timeout = setTimeout(function () {
+          timeout = null
+          fn.apply(context, args)
+        }, wait)
+      }
+    }
+  }
+
+  function throttle3(func, wait) {
+    var timeout, context, args, result;
+    var previous = 0;
+
+    var later = function() {
+      previous = +new Date();
+      timeout = null;
+      func.apply(context, args)
+    };
+
+    var throttled = function() {
+      var now = +new Date();
+      //下次触发 func 剩余的时间
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      // 如果没有剩余的时间了或者你改了系统时间
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        func.apply(context, args);
+      } else if (!timeout) {
+        timeout = setTimeout(later, remaining);
+      }
+    };
+    return throttled;
+  }
+
+  function throttle4(func, wait, options) {
+    var timeout, context, args, result;
+    var previous = 0;
+    if (!options) options = {};
+
+    var later = function() {
+      previous = options.leading === false ? 0 : new Date().getTime();
+      timeout = null;
+      func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+
+    var throttled = function() {
+      var now = new Date().getTime();
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+    };
+
+    throttled.cancel = function() {
+      clearTimeout(timeout);
+      previous = 0;
+      timeout = null;
+    }
+    return throttled;
+  }
+
+  var count = 1;
+  var container = document.getElementById('container');
+
+  function getUserAction(e) {
+    container.innerHTML = count++;
+  };
+
+  var setUseAction = throttle3(getUserAction, 1000, {leading: false, trailing: true});
+
+  container.onmousemove = setUseAction;
+
+  document.getElementById("button").addEventListener('click', function(){
+    setUseAction.cancel();
+  })
+</script>
+</body>
+</html>

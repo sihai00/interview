@@ -8,8 +8,8 @@
       margin: 0 auto;
     }
     .a{
-      width: 8rem;   /* 600px/75 */
-      height: 8rem; /* 600px/75 */
+      width: 80vw;   /* 600px/(750/100) */
+      height: 80vw; /* 600px/(750/100) */
       background-color:yellow;
       border: 1px solid #000;
     }
@@ -32,21 +32,32 @@
         font-size: 60px;
       }
     }
+
+    /* sass */
+    /*@mixin font-dpr($font-size){*/
+      /*font-size: $font-size;*/
+
+      /*[data-dpr="2"] & {*/
+        /*font-size: $font-size * 2;*/
+      /*}*/
+
+      /*[data-dpr="3"] & {*/
+        /*font-size: $font-size * 3;*/
+      /*}*/
+    /*}*/
+
+    /*@include font-dpr(16px);*/
   </style>
   <script>
     var viewport = document.querySelector("meta[name=viewport]");
     const scale = 1 / window.devicePixelRatio
     viewport.setAttribute('content', `width=device-width,initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`);
     document.documentElement.dataset['dpr'] = window.devicePixelRatio
-
-    var docEl = document.documentElement;
-    var fontsize = docEl.clientWidth / 10 + 'px';
-    docEl.style.fontSize = fontsize;
   </script>
 </head>
 <body>
-  <div>假设750设计图的div为600px宽度</div>
-  <div>1px不需要写兼容</div>
-  <div class="a"></div>
+<div>假设750设计图的div为600px宽度</div>
+<div>1px不需要写兼容</div>
+<div class="a"></div>
 </body>
 </html>

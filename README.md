@@ -23,7 +23,10 @@
 [手写call函数和apply函数](./javascript/手写call函数和apply函数.md)  
 [手写bind函数](./javascript/手写bind函数.md)  
 [手写new](./javascript/手写new.md)
-[创建对象的方式](./javascript/创建对象的方式.md)
+[创建对象的多种方式](./javascript/创建对象的多种方式.md)
+[继承的多种方式](./javascript/继承的多种方式.md)
+[防抖](javascript/防抖/防抖.md)
+[节流](javascript/节流/节流.md)
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  

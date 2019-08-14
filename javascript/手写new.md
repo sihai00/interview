@@ -24,7 +24,7 @@ function Otaku (name, age) {
     return 'handsome boy';
 }
 
-var person = new Otaku('Kevin', '18');
+var person = newObj(Otaku, 'Kevin', '18');
 
 console.log(person.name) // undefined
 console.log(person.habit) // undefined
