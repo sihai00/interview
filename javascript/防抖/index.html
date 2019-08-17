@@ -56,7 +56,7 @@
     container.innerHTML = count++;
   };
 
-  var setUseAction = debounce2(getUserAction, 2000, true);
+  var setUseAction = debounce(getUserAction, 2000, true);
 
   container.onmousemove = setUseAction;
 

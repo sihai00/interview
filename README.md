@@ -27,6 +27,12 @@
 [继承的多种方式](./javascript/继承的多种方式.md)
 [防抖](javascript/防抖/防抖.md)
 [节流](javascript/节流/节流.md)
+[数组去重](javascript/数组去重.md)
+[类型判断](javascript/类型判断.md)
+[柯里化](javascript/柯里化.md)
+[惰性函数](javascript/惰性函数.md)
+[组合函数](javascript/组合函数.md)
+[乱序](javascript/乱序.md)
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  
@@ -55,8 +61,12 @@
 [装饰者模式](./设计模式/装饰者模式.md)  
 
 ## 算法
-[冒泡排序](https://github.com/sihai00/interview/issues/21)  
-[交集](https://github.com/sihai00/interview/issues/24)  
+[交集](./算法/交集.md)  
+[冒泡排序](./算法/冒泡排序.md)  
+[选择排序](./算法/选择排序.md) 
+[插入排序](./算法/插入排序.md)  
+[快速排序](./算法/快速排序.md)  
+[归并排序](./算法/归并排序.md)  
 
 ## 项目
 [大公司里怎样开发和部署前端代码？](https://github.com/sihai00/interview/issues/9)  
