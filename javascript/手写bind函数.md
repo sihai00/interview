@@ -41,11 +41,12 @@ Function.prototype.bind2 = function(context) {
   var args = Array.prototype.slice.call(arguments, 1)
   var self = this
   
-  var c = function () {}
   var bound = function () {
     var bindArgs = Array.prototype.slice.call(arguments)
     self.apply(this instanceof bound ? this : context, args.concat(bindArgs))
   }
+  
+  var c = function () {}
   c.prototype = this.prototype
   bound.prototype = new c()
   return bound

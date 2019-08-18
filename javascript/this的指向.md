@@ -1,8 +1,10 @@
+# this的指向
 1. 默认绑定：this绑定windows
 2. 隐式绑定：对象的方法
 3. 显式绑定：apply、call、bind
 4. new绑定
 
+## 代码
 ```javascript
 // 1. 默认绑定
 function foo(){

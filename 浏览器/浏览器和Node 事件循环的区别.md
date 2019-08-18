@@ -15,7 +15,7 @@ Node使用libuv（实现 Node.js 事件循环和平台的所有异步行为的 C
 - poll 阶段：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，它们由计时器和 setImmediate() 排定的之外），其余情况 node 将在此处阻塞。
 - check 阶段：setImmediate() 回调函数在这里执行。（**poll完成时执行**）
 - close callbacks 阶段：一些准备关闭的回调函数，如：socket.on('close', ...)。
-- **process.nextTick**：独立于 Event Loop 之外的队列。当每个阶段完成后立即执行
+- **process.nextTick**：独立于 Event Loop 之外的队列。当每个阶段完成后***立即执行***
 
 poll 轮询阶段流程：
 1. 如果有timer，回到 timer 阶段执行回调
@@ -45,7 +45,7 @@ setTimeout(()=>{
 }, 0)
 ```
 浏览器端运行结果：timer1=>promise1=>timer2=>promise2
-Node11之前的版本：timer1=>promise1=>timer2=>promise2（timers阶段会依次执行完）
+Node11之前的版本：timer1=>timer2=>promise1=>promise2（timers阶段会依次执行完）
 Node11之后的版本：timer1=>promise1=>timer2=>promise2（执行一次宏任务后立即执行微任务）
 
 ## 题目
@@ -78,18 +78,18 @@ new Promise(function(resolve){
 console.log('script end')
 
 // 正确结果
-script start
-async1 start
-async2
-promise1
-promise2
-script end
-nextTick
-async1 end
-promise3
-setTimeout0
-setImmediate
-setTimeout3
+// script start
+// async1 start
+// async2
+// promise1
+// promise2
+// script end
+// nextTick
+// async1 end
+// promise3
+// setTimeout0
+// setImmediate
+// setTimeout3
 ```
 ## 参考
 [浏览器与Node的事件循环(Event Loop)有何区别?](https://juejin.im/post/5c337ae06fb9a049bc4cd218#heading-13)

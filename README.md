@@ -13,6 +13,7 @@
 [实现sleep函数](https://github.com/sihai00/interview/issues/15)  
 [运算优先级](https://github.com/sihai00/interview/issues/20)  
 [设计 LazyMan 类](https://github.com/sihai00/interview/issues/22)  
+[promise](./javascript/promise.md)  
 [手写Promise.finally](https://github.com/sihai00/interview/issues/25)  
 [手写Promise.all](https://github.com/sihai00/interview/issues/31)  
 [手写Promise.race](https://github.com/sihai00/interview/issues/32)  
@@ -33,6 +34,8 @@
 [惰性函数](javascript/惰性函数.md)
 [组合函数](javascript/组合函数.md)
 [乱序](javascript/乱序.md)
+[定时器](javascript/定时器.md)
+[手写instanceof](javascript/手写instanceof.md)
 
 ## css
 [BFC、IFC、GFC和FFC](https://github.com/sihai00/interview/issues/14)  
@@ -52,13 +55,14 @@
 [缓存位置](https://github.com/sihai00/interview/issues/10)  
 [https](https://github.com/sihai00/interview/issues/16)  
 [监听中文输入](./html/监听中文输入/监听中文输入.md)  
+[垃圾回收机制](./浏览器/垃圾回收机制.md)
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)  
 [资源加载优先级Preload和Prefetch](https://github.com/sihai00/interview/issues/11)  
 
 ## 设计模式
-[装饰者模式](./设计模式/装饰者模式.md)  
+[装饰者模式与AOP](javascript/装饰者模式与AOP.md)
 
 ## 算法
 [交集](./算法/交集.md)  
@@ -67,6 +71,9 @@
 [插入排序](./算法/插入排序.md)  
 [快速排序](./算法/快速排序.md)  
 [归并排序](./算法/归并排序.md)  
+
+## 服务器
+[Nginx](./服务器/Nginx.md)  
 
 ## 项目
 [大公司里怎样开发和部署前端代码？](https://github.com/sihai00/interview/issues/9)  
@@ -101,3 +108,6 @@
 [28ArrayBuffer](./精读阮一峰ECMAScript6/28ArrayBuffer.md)
 [29最新提案](./精读阮一峰ECMAScript6/29最新提案.md)
 [30装饰器](./精读阮一峰ECMAScript6/30装饰器.md)
+
+## 参考
+[冴羽的博客](https://github.com/mqyqingfeng/Blog)
