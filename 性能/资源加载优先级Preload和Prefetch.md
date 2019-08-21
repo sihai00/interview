@@ -13,8 +13,8 @@
 
 ## 1.1 preload 和 prefetch 混用
 ```html
-<link rel="preload"   href="https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff" as="font">
-<link rel="prefetch"  href="https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff" as="font">
+<link rel="preload" href="https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff" as="font">
+<link rel="prefetch" href="https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff" as="font">
 ```
 ![preload 和 prefetch 混用](https://user-gold-cdn.xitu.io/2018/2/11/16182c9d024a861b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
