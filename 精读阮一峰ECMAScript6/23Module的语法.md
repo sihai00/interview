@@ -143,7 +143,7 @@ export const db = {
 // constants/user.js
 export const users = ['root', 'admin', 'staff', 'ceo', 'chief', 'moderator'];
 
-// constants/index.js
+// constants/work.js
 export {db} from './db';
 export {users} from './users';
 

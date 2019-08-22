@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+worker
+</body>
+<script>
+  var worker = new Worker('work.js');
+
+  var uInt8Array = new Uint8Array(new ArrayBuffer(10));
+  for (var i = 0; i < uInt8Array.length; ++i) {
+    uInt8Array[i] = i * 2;
+  }
+
+  worker.postMessage({cmd: 'start', msg: uInt8Array});
+
+  worker.onmessage = function (event) {
+    console.log('Received message ' + event.data);
+    doSomething();
+  }
+
+  function doSomething() {
+    // 执行任务
+    worker.postMessage({cmd: 'stop', msg: 'Work done!'});
+
+    worker.terminate();
+  }
+
+  worker.addEventListener('error', function (event) {
+    console.log(event, 'error')
+  })
+</script>
+</html>

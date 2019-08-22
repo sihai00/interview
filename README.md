@@ -42,6 +42,9 @@
 [水平垂直居中](https://github.com/sihai00/interview/issues/19)  
 [分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景](https://github.com/sihai00/interview/issues/23)
 
+## html
+[监听中文输入](./html/监听中文输入/监听中文输入.md)  
+
 ## react
 [Flux、Redux、Redux-saga、Dva、MobX](https://github.com/sihai00/interview/issues/7)    
 [手写Redux](https://github.com/sihai00/interview/issues/13)  
@@ -58,8 +61,8 @@
 [浏览器和Node 事件循环的区别](https://github.com/sihai00/interview/issues/8)    
 [缓存位置](https://github.com/sihai00/interview/issues/10)  
 [https](https://github.com/sihai00/interview/issues/16)  
-[监听中文输入](./html/监听中文输入/监听中文输入.md)  
 [垃圾回收机制](./浏览器/垃圾回收机制.md)
+[worker](浏览器/worker.md)
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)  
