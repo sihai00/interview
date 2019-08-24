@@ -1,7 +1,13 @@
 ## 浏览器
+- 微任务包括：process.nextTick ，promise ，Object.observe ，MutationObserver
+- 宏任务包括：script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering
+
 浏览器的执行循环顺序：
-1. 执行一次task（宏任务）
-2. 执行完micro-task队列 （微任务）
+- 执行同步代码，这属于宏任务
+- 执行栈为空，查询是否有微任务需要执行
+- 执行所有微任务
+- 必要的话渲染 UI
+- 然后开始下一轮 Event loop，执行宏任务中的异步代码
 
 ![浏览器](https://user-gold-cdn.xitu.io/2019/1/10/1683863633586974?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 

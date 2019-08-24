@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+  function Node(data, left, right) {
+    this.data = data
+    this.left = left
+    this.right = right
+  }
+
+  Node.prototype = {
+    show: function() {
+      console.log(this.data)
+    }
+  }
+
+  function Tree() {
+    this.root = null
+  }
+  Tree.prototype = {
+    insert: function(data) {
+      var node = new Node(data, null, null)
+      if (!this.root) {
+        this.root = node
+        return
+      }
+      var current = this.root
+      var parent = null
+      while(current) {
+        parent = current
+        if (data < parent.data) {
+          current = current.left
+          if (!current) {
+            parent.left = node
+            return
+          }
+        } else {
+          current = current.right
+          if (!current) {
+            parent.right = node
+            return
+          }
+        }
+      }
+    },
+    mirror: function (node) {
+      if (node) {
+        var temp = node.left
+        node.left = node.right
+        node.right = temp
+        this.mirror(node.left)
+        this.mirror(node.right)
+      }
+    },
+    isSymmetrical: function (root) {
+      function isSymmetricalTree(node1, node2) {
+        if (!node1 && !node2) return true
+        if (!node1 || !node2) return false
+        if (node1.data !== node2.data) return false
+        return isSymmetricalTree(node1.left, node2.right) && isSymmetricalTree(node1.right, node2.left)
+      }
+
+      return isSymmetricalTree(root, root)
+    },
+    preOrder: function(node) {
+      if (node) {
+        node.show()
+        this.preOrder(node.left)
+        this.preOrder(node.right)
+      }
+    },
+    middleOrder: function (node) {
+      if (node) {
+        this.middleOrder(node.left)
+        node.show()
+        this.middleOrder(node.right)
+      }
+    },
+    laterOrder: function (node) {
+      if (node) {
+        this.laterOrder(node.left)
+        this.laterOrder(node.right)
+        node.show()
+      }
+    },
+    getMin: function () {
+      var current = this.root
+      while (current) {
+        if (!current.left) {
+          return current
+        }
+        current = current.left
+      }
+    },
+    getMax: function () {
+      var current = this.root
+      while (current) {
+        if (!current.right) {
+          return current
+        }
+        current = current.right
+      }
+    },
+    getMaxDeep: function (node) {
+      return !node ? 0 : Math.max(this.getMaxDeep(node.left), this.getMaxDeep(node.right)) + 1
+    },
+    getMinDeep: function (node) {
+      if (!node) return 0
+      if (!node.left) return 1 + this.getMinDeep(node.right)
+      if (!node.right) return 1 + this.getMinDeep(node.left)
+      return Math.min(this.getMinDeep(node.left), this.getMinDeep(node.right)) + 1
+    },
+    getNode: function (data, node) {
+      if (node) {
+        if (data === node.data) {
+          return node
+        } else if (data < node.data) {
+          return this.getNode(data, node.left)
+        } else {
+          return this.getNode(data, node.right)
+        }
+      } else {
+        return null
+      }
+    },
+    findKthNode: function (node, k) {
+      var arr = []
+      this.middleOrder(node)
+      if (k >= 0 && k < arr.length) return arr[k - 1]
+    }
+  }
+
+  var inorderTraversal = function (root) {
+    const result = [];
+    const stack = [];
+    let current = root;
+    while (current || stack.length > 0) {
+      while (current) {
+        stack.push(current);
+        current = current.left;
+      }
+      current = stack.pop();
+      result.push(current.data);
+      current = current.right;
+    }
+    return result;
+  }
+
+  var t = new Tree()
+  t.insert(3)
+  t.insert(8)
+  t.insert(1)
+  t.insert(2)
+  t.insert(5)
+  t.insert(7)
+  t.insert(6)
+  t.insert(0)
+  t.preOrder(t.root)
+</script>
+</html>

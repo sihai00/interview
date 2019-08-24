@@ -40,7 +40,7 @@
 
   function log({getState, dispatch}) {
     return (next) => (action) => {
-      console.log('log before', action, dispatch)
+      console.log('log before', action, dispatch, next)
       let returnValue = next(action)
       console.log('log after')
 
@@ -67,7 +67,6 @@
     num1.innerHTML = state.reducer1
     num2.innerHTML = state.reducer2
   };
-
   add.addEventListener('click', function () {
     store.dispatch({type: 'INCREMENT'})
   })
