@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+a.html
+<iframe src="http://127.0.0.1:8082/bridge.html" frameborder="0" name="1111"></iframe>
+</body>
+<script>
+  // const bc = new BroadcastChannel('AlienZHOU')
+  // bc.onmessage = function (e) {
+  //   console.log('[BroadcastChannel] receive message:', e.data);
+  // };
+  //
+  // window.addEventListener('storage', function (e) {
+  //   const key = e.key
+  //   const value = e.newValue
+  //   console.log('storage', key, value)
+  // })
+
+  var frame = document.querySelector('iframe')
+  frame.onload = function(argument) {
+    // frame.src += '#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+    window.frames[0].postMessage('a.html', '*');
+  }
+
+  window.onmessage = function (e) {
+    console.log('a.html onmessage', e.data)
+  }
+  // window.frames[0].window.postMessage('test', '*')
+
+</script>
+</html>

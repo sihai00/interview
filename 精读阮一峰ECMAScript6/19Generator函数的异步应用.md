@@ -255,9 +255,9 @@ var readFile = function (fileName){
 };
 var gen = function* (){
   var f1 = yield readFile('/etc/fstab');
-  console.log('f1');
+  console.log(f1);
   var f2 = yield readFile('/etc/shells');
-  console.log('f2');
+  console.log(f2);
 };
 
 // var g = gen();

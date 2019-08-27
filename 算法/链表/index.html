@@ -10,6 +10,161 @@
 
 </body>
 <script>
+  function Node(data, next) {
+    this.data = data;
+    this.next = next;
+  }
 
+  function List() {
+    this.head = null;
+    this.size = 0;
+  }
+
+  List.prototype = {
+    errorBoundary: function(index){
+      if (index < 0 || index >= this.size) {
+        throw `超出边界(${0}~${this._size})，目标位置${index}不存在！`
+      }
+    },
+    find: function(index) {
+      this.errorBoundary(index)
+      var item = this.head
+      for (var i = 0; i < index; i++) {
+        item = item.next
+      }
+      return item
+    },
+    append: function(data) {
+      if (this.size === 0) {
+        this.head = new Node(data, null)
+      } else {
+        var node = this.find(this.size - 1)
+        node.next = new Node(data, null)
+      }
+      this.size += 1
+    },
+    insert: function(data, index) {
+      if (this.size === 0) {
+        this.head = new Node(data, this.head)
+      } else {
+        var node = this.find(index - 1)
+        node.next = new Node(data, node.next)
+      }
+      this.size += 1
+    },
+    remove: function(data) {
+      if (this.size < 1) return null
+
+      if (this.head.data === data) {
+        this.head = this.head.next
+      } else {
+        var head = this.head
+        while(head.next) {
+          if (head.next.data === data) {
+            head.next = head.next.next
+            this.size -= 1
+            return data
+          } else {
+            head = head.next
+          }
+        }
+      }
+
+      return null
+    },
+    removeAt: function(index) {
+      this.errorBoundary(index)
+      var node
+      if (index === 0) {
+        node = this.head
+        this.head = node.next
+      } else {
+        var pre = this.find(index - 1)
+        node = pre.next.next
+        pre.next = node
+      }
+      this.size -= 1
+      return node
+    },
+    removeAll: function(data) {
+      var v_head = new Node(null, this.head)
+      var temp = v_head
+      while(temp.next) {
+        if (temp.data === data) {
+          temp.next = temp.next.next
+          this.size -= 1
+        } else {
+          temp = temp.next
+        }
+      }
+      this.head = v_head
+    },
+    getNode: function(index) {
+      this.find(index)
+    },
+    setIndex: function(data, index) {
+      this.errorBoundary(index)
+      var node = this.find(index)
+      node.data = data
+    },
+    indexOf: function(data) {
+      var temp = this.head
+      var index = -1
+      for (var i = 0; i < this.size; i++) {
+        if (temp.data === data) {
+          index = i
+          break
+        }
+
+        temp = temp.next
+      }
+      return index
+    },
+    clear: function() {
+      this.head = null
+      this.size = 0
+    },
+    length: function() {
+      return this.size
+    },
+    printf: function() {
+      var head = this.head
+      var arr = []
+      while(head) {
+        arr.push(head.data)
+        head = head.next
+      }
+      return arr.join('->') || null
+    },
+    reverse: function() {
+      var pre = null
+      var cur = this.head
+      var next =  null
+
+      while(cur) {
+        next = cur.next
+        cur.next = pre
+        pre = cur
+        cur = next
+      }
+
+      this.head = pre
+    }
+  }
+  const obj = new List()
+  obj.append(0)
+  obj.append(1)
+  obj.append(2)
+  obj.reverse()
+  console.log(obj.printf())
+  // obj.insert(3, 3)
+  // obj.remove(3)
+  // obj.removeAt(0)
+  // obj.setIndex(0, 0)
+  // console.log(obj.printf())
+  // console.log(obj.indexOf(2))
+  // console.log(obj.length())
+  // obj.clear()
+  // console.log(obj.printf())
 </script>
 </html>

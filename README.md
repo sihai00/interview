@@ -49,6 +49,7 @@
 [Flux、Redux、Redux-saga、Dva、MobX](https://github.com/sihai00/interview/issues/7)    
 [手写Redux](https://github.com/sihai00/interview/issues/13)  
 [手写双向绑定](https://github.com/sihai00/interview/issues/28)  
+[高阶组建HOC](react/React组件复用/高阶组建HOC.md)  
 
 ## 打包工具
 [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
@@ -63,6 +64,7 @@
 [https](https://github.com/sihai00/interview/issues/16)  
 [垃圾回收机制](./浏览器/垃圾回收机制.md)  
 [worker](浏览器/worker.md)  
+[跨页面通信](浏览器/跨页面通信.md)  
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)   
@@ -70,11 +72,12 @@
 [优化关键渲染](./性能/优化关键渲染.md)  
 
 ## 设计模式
-[装饰者模式与AOP](javascript/装饰者模式与AOP.md)  
+[构造函数模式](javascript/设计模式/构造函数模式.md)  
+[装饰者模式与AOP](javascript/设计模式/装饰者模式与AOP.md)  
 
 ## 算法
-[二叉树](算法/二叉树/二叉树.md)
-
+[二叉树](算法/二叉树/二叉树.md)  
+[链表](算法/链表/链表.md)  
 [交集](./算法/交集.md)  
 [冒泡排序](./算法/冒泡排序.md)  
 [选择排序](./算法/选择排序.md)  

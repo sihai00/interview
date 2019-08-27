@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+bridge.html
+</body>
+<script>
+  /* iframe 内代码 */
+  const bc = new BroadcastChannel('AlienZHOU');
+  // 收到来自页面的消息后，在 iframe 间进行广播
+  window.addEventListener('message', function (e) {
+    console.log(e, 'bridge')
+    bc.postMessage(e.data);
+  });
+
+  bc.onmessage = function (e) {
+    window.parent.postMessage(e.data, '*');
+  }
+</script>
+</html>
