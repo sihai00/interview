@@ -1,7 +1,33 @@
 # 装饰者模式与AOP
 
 ## 装饰者模式
-在不改变对象的情况下动态的为其添加功能
+在不改变对象的情况下添加功能
+
+```javascript
+var plane = {
+  fire: function(){
+    console.log( '发射普通子弹' ); 
+  }
+}
+var missileDecorator = function(){ 
+  console.log( '发射导弹' );
+}
+var atomDecorator = function(){ 
+  console.log( '发射原子弹' );
+}
+var fire1 = plane.fire;
+plane.fire = function(){ 
+  fire1();
+  missileDecorator(); 
+}
+var fire2 = plane.fire;
+plane.fire = function(){ 
+  fire2();
+  atomDecorator(); 
+}
+plane.fire();
+// 分别输出: 发射普通子弹、发射导弹、发射原子弹
+```
 
 ## AOP
 面向切面编程（AOP）：是对 OOP 的补充，在各个节点前后插入动作。
