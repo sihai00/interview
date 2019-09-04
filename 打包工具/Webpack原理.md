@@ -19,6 +19,9 @@
 6. （执行compiler.seal方法）-> emit阶段：compiler开始输出生内容（插件有最后的机会修改assets）
 7. after-emit：输出完成
 
+compiler：控制流程。负责文件监听和启动编译，包含了完整的 Webpack 配置，全局只有一个 Compiler
+compilation：专业解析。包含了当前的模块资源、编译生成资源、变化的文件等
+
 ## loader使用
 ```javascript
 const loaderUtils = require("loader-utils");

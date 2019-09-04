@@ -357,6 +357,8 @@ Hook可以让你在class以外使用state和其他React特性
 - useEffect(回调函数, 状态依赖)：
   - 回调函数：渲染完后调用（返回函数表示执行下一次useEffect之前，会调用这个函数）
   - 状态依赖：当配置了状态依赖项后，只有检测到配置的状态变化时，才会调用回调函数
+- useContext：共享状态
+- useReducer：使用 Reducer 函数算出新的状态
 - useRef：获取dom || 保存一个任意值
 
 ```typescript jsx

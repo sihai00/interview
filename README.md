@@ -49,7 +49,8 @@
 [Flux、Redux、Redux-saga、Dva、MobX](https://github.com/sihai00/interview/issues/7)    
 [手写Redux](https://github.com/sihai00/interview/issues/13)  
 [手写双向绑定](https://github.com/sihai00/interview/issues/28)  
-[高阶组建HOC](react/React组件复用/高阶组建HOC.md)  
+[Mixin、HOC、Render-Props、Hook](react/Mixin、HOC、Render-Props、Hook.md)  
+[immutable](react/immutable.md)  
 
 ## 打包工具
 [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
@@ -65,6 +66,7 @@
 [垃圾回收机制](./浏览器/垃圾回收机制.md)  
 [worker](浏览器/worker.md)  
 [跨页面通信](浏览器/跨页面通信.md)  
+[Ajax]()
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)   
@@ -91,7 +93,10 @@
 ## 项目
 [大公司里怎样开发和部署前端代码？](https://github.com/sihai00/interview/issues/9)    
 [为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片？](https://github.com/sihai00/interview/issues/18)    
-[移动端适配](项目/移动端适配/移动端适配/移动端适配.md)  
+[移动端适配](./项目/移动端适配/移动端适配.md)  
+
+## 软技能
+[简历](./软技能/简历.md)
 
 ## 精度 ECMAScript 6 入门 - 阮一峰
 [02let和const命令](./精读阮一峰ECMAScript6/02let和const命令.md)  
