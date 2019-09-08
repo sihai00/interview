@@ -35,6 +35,9 @@ Model和Presenter是双向通信，View和Presenter是双向通信，Model和Vie
 优点：
 - 通过双向绑定，同步逻辑自动化
 
+缺点：
+- 错误定位：可能是View层也可能是ViewModel层
+
 ![mvvm](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015020110.png)
 
 ## 参考
