@@ -51,6 +51,8 @@
 [手写双向绑定](https://github.com/sihai00/interview/issues/28)  
 [Mixin、HOC、Render-Props、Hook](react/Mixin、HOC、Render-Props、Hook.md)  
 [immutable](react/immutable.md)  
+[Hook](react/Hook.md)  
+[reselect](react/reselect.md)  
 
 ## 打包工具
 [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
@@ -58,6 +60,8 @@
 [Webpack知识点](./打包工具/Webpack知识点.md)  
 [Webpack插件](./打包工具/Webpack插件.md)  
 [Webpack原理](./打包工具/Webpack原理.md)  
+[webpack输出文件分析](./打包工具/webpack输出文件分析.md)  
+[webpack优化](./打包工具/webpack优化.md)  
 
 ## 浏览器
 [浏览器和Node事件循环的区别](https://github.com/sihai00/interview/issues/8)      
@@ -74,8 +78,34 @@
 [优化关键渲染](./性能/优化关键渲染.md)  
 
 ## 设计模式
-[构造函数模式](javascript/设计模式/构造函数模式.md)  
-[装饰者模式与AOP](javascript/设计模式/装饰者模式与AOP.md)  
+[基础](./设计模式/基础.md)  
+[设计原则](./设计模式/设计原则.md)  
+[单例模式](./设计模式/01单例模式.md)  
+[工厂模式](./设计模式/02工厂模式.md)  
+[抽象工厂模式](./设计模式/03抽象工厂模式.md)  
+[建造者模式](./设计模式/04建造者模式.md)  
+[代理模式](./设计模式/05代理模式.md)  
+[享元模式](./设计模式/06享元模式.md)  
+[适配器模式](./设计模式/07适配器模式.md)  
+[装饰者模式](./设计模式/08装饰者模式.md)  
+[外观模式](./设计模式/09外观模式.md)  
+[组合模式](./设计模式/10组合模式.md)  
+[桥接模式](./设计模式/11桥接模式.md)  
+[发布-订阅模式](./设计模式/12发布-订阅模式.md)  
+[策略模式](./设计模式/13策略模式.md)  
+[状态模式](./设计模式/14状态模式.md)  
+[模板方法模式](./设计模式/15模板方法模式.md)  
+[迭代器模式](./设计模式/16迭代器模式.md)  
+[命令模式](./设计模式/17命令模式.md)  
+[责任链模式](./设计模式/18责任链模式.md)  
+[中介者模式](./设计模式/19中介者模式.md)  
+[模块模式](./设计模式/20模块模式.md)  
+[链模式](./设计模式/21链模式.md)  
+[Mixin模式](./设计模式/Mixin模式.md)  
+[链模式](./设计模式/21链模式.md)  
+[原型模式](./设计模式/原型模式.md)  
+[构造函数模式](./设计模式/构造函数模式.md)  
+[MVC、MVP、MVVM](./设计模式/MVC、MVP、MVVM.md)  
 
 ## 算法
 [二叉树](算法/二叉树/二叉树.md)  
@@ -126,6 +156,25 @@
 [28ArrayBuffer](./精读阮一峰ECMAScript6/28ArrayBuffer.md)  
 [29最新提案](./精读阮一峰ECMAScript6/29最新提案.md)  
 [30装饰器](./精读阮一峰ECMAScript6/30装饰器.md)  
+
+## JavaScript设计模式与开发实践
+[单例模式](./JavaScript设计模式与开发实践/01单例模式.md)  
+[策略模式](./JavaScript设计模式与开发实践/02策略模式.md)  
+[代理模式](./JavaScript设计模式与开发实践/03代理模式.md)  
+[迭代器模式](./JavaScript设计模式与开发实践/04迭代器模式.md)  
+[观察者模式](./JavaScript设计模式与开发实践/05观察者模式.md)  
+[命令模式](./JavaScript设计模式与开发实践/06命令模式.md)  
+[组合模式](./JavaScript设计模式与开发实践/07组合模式.md)  
+[模板方法模式](./JavaScript设计模式与开发实践/08模板方法模式.md)  
+[享元模式](./JavaScript设计模式与开发实践/09享元模式.md)  
+[职责链模式](./JavaScript设计模式与开发实践/10职责链模式.md)  
+[中介者模式](./JavaScript设计模式与开发实践/11中介者模式.md)  
+[装饰者模式](./JavaScript设计模式与开发实践/12装饰者模式.md)  
+[状态模式](./JavaScript设计模式与开发实践/13状态模式.md)  
+[适配器模式](./JavaScript设计模式与开发实践/14适配器模式.md)  
+[单一职责原则](./JavaScript设计模式与开发实践/15单一职责原则.md)  
+[最少知识原则](./JavaScript设计模式与开发实践/16最少知识原则.md)  
+[开放-封闭原则](./JavaScript设计模式与开发实践/17开放-封闭原则.md)  
 
 ## 参考
 [冴羽的博客](https://github.com/mqyqingfeng/Blog)  
