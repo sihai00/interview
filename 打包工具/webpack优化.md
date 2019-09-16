@@ -91,7 +91,6 @@ import PageHome from './pages/home';
  */
 function getAsyncComponent(load) {
   return class AsyncComponent extends PureComponent {
-
     componentDidMount() {
       // 在高阶组件 DidMount 时才去执行网络加载步骤
       load().then(({default: component}) => {
@@ -101,7 +100,6 @@ function getAsyncComponent(load) {
         })
       });
     }
-
     render() {
       const {component} = this.state || {};
       // component 是 React.Component 类型，需要通过 React.createElement 生产一个组件实例
@@ -142,7 +140,10 @@ render(<App/>, window.document.getElementById('app'));
 ps：代码可能不认识 `import` 语法，可以借助 `babel-plugin-syntax-dynamic-import`
 
 ## 作用域提升（Scope Hoisting）
-分析出模块之间的依赖关系，尽可能的把打散的模块合并到一个函数中去，但前提是不能造成代码冗余。 因此只有那些被引用了一次的模块才能被合并
+分析出模块之间的依赖关系，尽可能的把打散的模块合并到一个函数中去，但前提是不能造成代码冗余。因此只有那些被引用了一次的模块才能被合并
+- 代码体积更小，因为函数申明语句会产生大量代码；
+- 代码在运行时因为创建的函数作用域更少了，内存开销也随之变小。
+
 - 需采用 ES6 模块化语法
 ```javascript
 const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
@@ -165,4 +166,4 @@ module.exports = {
     - 可视化工具 `webpack-bundle-analyzer`
 
 ## 参考
-深入浅出webpack第四章
+[深入浅出webpack第四章](http://webpack.wuhaolin.cn/) 

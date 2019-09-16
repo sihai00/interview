@@ -68,14 +68,13 @@
 [缓存位置](https://github.com/sihai00/interview/issues/10)   
 [https](https://github.com/sihai00/interview/issues/16)  
 [垃圾回收机制](./浏览器/垃圾回收机制.md)  
-[worker](浏览器/worker.md)  
-[跨页面通信](浏览器/跨页面通信.md)  
-[Ajax]()
+[worker](./浏览器/worker/worker.md)  
+[跨页面通信](./浏览器/跨页面通信/跨页面通信.md)  
 
 ## 性能
 [重绘和回流](https://github.com/sihai00/interview/issues/5)   
 [资源加载优先级Preload和Prefetch](https://github.com/sihai00/interview/issues/11)    
-[优化关键渲染](./性能/优化关键渲染.md)  
+[汇总](./性能/汇总.md)    
 
 ## 设计模式
 [基础](./设计模式/基础.md)  
