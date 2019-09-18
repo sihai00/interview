@@ -17,7 +17,7 @@ SSL/TLS协议：
 * 证书验证：解决冒充风险
 
 ## 加密过程
-![https](./https.jpg)
+![https](https.jpg)
 Https的建立过程：http -> ssl -> tcp -> ip
 
 准备工作：

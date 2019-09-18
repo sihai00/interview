@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>hash</title>
+</head>
+<body>
+  <div id="nav">
+    <a href="#/page1">page1</a>
+    <a href="#/page2">page2</a>
+    <a href="#/page3">page3</a>
+    <a href="#/page4">page4</a>
+    <a href="#/page5">page5</a>
+  </div>
+  <div id="container"></div>
+</body>
+<script>
+  class HashRouter {
+    constructor(){
+      this.routers = {}
+      window.addEventListener('hashchange', this.load.bind(this))
+    }
+    //用于注册每个视图
+    register(hash,callback = function(){}){
+      this.routers[hash] = callback;
+    }
+    //用于注册首页
+    registerIndex(callback = function(){}){
+      this.routers['index'] = callback;
+    }
+    //用于处理视图未找到的情况
+    registerNotFound(callback = function(){}){
+      this.routers['404'] = callback;
+    }
+    //用于处理异常情况
+    registerError(callback = function(){}){
+      this.routers['error'] = callback;
+    }
+    load(e) {
+      let hash = window.location.hash.slice(1)
+      let handler
+
+      if(!hash){
+        handler = this.routers.index;
+      }
+      //未找到对应hash值
+      else if(!this.routers.hasOwnProperty(hash)){
+        handler = this.routers['404'] || function(){};
+      }
+      else {
+        handler = this.routers[hash]
+      }
+
+      try{
+        handler.apply(this);
+      }catch(e){
+        console.error(e);
+        (this.routers['error'] || function(){}).call(this,e);
+      }
+    }
+  }
+
+  let router = new HashRouter();
+  let container = document.getElementById('container');
+
+  //注册首页回调函数
+  router.registerIndex(()=> container.innerHTML = '我是首页');
+
+  //注册其他视图回到函数
+  router.register('/page1',()=> container.innerHTML = '我是page1');
+  router.register('/page2',()=> container.innerHTML = '我是page2');
+  router.register('/page3',()=> container.innerHTML = '我是page3');
+  router.register('/page4',()=> {throw new Error('抛出一个异常')})
+  router.registerError((e)=>container.innerHTML = '页面异常，错误消息：<br>' + e.message);
+  router.registerNotFound(()=>container.innerHTML = '页面未找到');
+
+  //加载视图
+  router.load();
+</script>
+</html>
