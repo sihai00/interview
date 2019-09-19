@@ -50,7 +50,7 @@
 - [手写Redux](https://github.com/sihai00/interview/issues/13)  
 - [手写双向绑定](https://github.com/sihai00/interview/issues/28)  
 - [Mixin、HOC、Render-Props、Hook](react/Mixin、HOC、Render-Props、Hook.md)  
-- [immutable](react/immutable.md)  
+- [immutable](react/immutable/immutable.md)  
 - [Hook](react/Hook.md)  
 - [reselect](react/reselect.md)  
 
