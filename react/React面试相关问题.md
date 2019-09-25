@@ -97,24 +97,16 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
 2. 假如是想让请求更早触发，但是React16不能保证constructor或者componentWillMount的触发次数，因为Fiber可以让React开始或者中断更新
 3. 在将来componentWillMount会被废弃
 
-## setState之后发生什么
-- 在fiber节点上使用链表来记录这段时间内需要更新的任务来进行批量更新
-- 进入调度阶段，React 会以相对高效的方式根据新的状态构建 React 元素树
-- 比较新旧节点的差异，进行最小化的渲染
-
-## setState是同步还是异步
-- setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。
-- setState 的“异步”并不是说内部由异步代码实现，其实本身执行的过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前，导致在合成事件和钩子函数中没法立马拿到更新后的值，形成了所谓的“异步”，当然可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。
-- setState 的批量更新优化也是建立在“异步”（合成事件、钩子函数）之上的，在原生事件和setTimeout 中不会批量更新，在“异步”中如果对同一个值进行多次setState，setState的批量更新策略会对其进行覆盖，取最后一次的执行，如果是同时setState多个不同的值，在更新时会对其进行合并批量更新。
-
 ## [Fiber架构](https://zhuanlan.zhihu.com/p/37095662)
+当遇到进程阻塞的问题时，任务分割、异步调用 和 缓存策略 是三个显著的解决思路。
+
 1. Fiber架构相对于以前的递归更新组件有有什么优势
 - 原因是递归更新组件会让js调用栈占用很长时间
 - 因为浏览器是单线程的，GUI渲染线程和js线程是互斥的。当js线程长时间占用时，渲染就会延时，看上去就是卡顿
 - Fiber架构将任务分片执行。当浏览器有空闲时，再去执行高优先级的任务，降低渲染阻塞。
 
 2. 既然你说Fiber是将组件分段渲染，那第一段渲染之后，怎么知道下一段从哪个组件开始渲染呢
-- fiber节点拥有return, child, sibling三个属性，分别对应父节点， 第一个孩子，它右边的兄弟，有了它们就足够将一棵树变成一个链表
+- fiber节点拥有return, child, sibling三个属性，分别对应父节点，第一个孩子，它右边的兄弟，有了它们就足够将一棵树变成一个链表
 
 3. 怎么决定每次更新的数量
 - React16则是需要将虚拟DOM转换为Fiber节点，首先它规定一个时间段内，然后在这个时间段能转换多少个FiberNode，就更新多少个。
@@ -132,9 +124,41 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
             - 大于：当前帧已经没有空闲时间了。是否有任务过期
                 - 过期：执行这个任务。
                 - 没过期：把这个任务丢到下一帧
+                
+## setState之后发生什么
+- 在React内部的update链表上记录所需更新的任务，在一定的时间内进行批量更新操作
+- 调度阶段（requestIdleCallback）：高优先级任务可打断低优先级任务
+    1. 从update链表上获取一次更新任务（nextUnitOfWork）。处理单个fiber节点作为最小工作单位
+    2. 根据更新任务，找到其根fiber。目的自顶向下逐节点构造 workInProgress tree，标记副作用。
+        1. beginWork：处理child fiber副作用。当前fiber是否需要更新
+            - 不需要：直接把子节点clone过来
+            - 需要：
+                - 生成fiber
+                - 标记更新类型
+                - 更新当前节点状态（props, state, context等）
+                - 调用shouldComponentUpdate()
+                - 调用组件实例方法 render() 获得新的子节点，并为子节点创建 Fiber Node（创建过程会尽量复用现有 Fiber Node，子节点增删也发生在这里）
+                - 此节点改变产生的effect合并到父节点中
+        2. 判断是否有空闲时间
+            - 没有时间：把控制权还给浏览器
+            - 有时间：判断是否产生child fiber
+                - 产生：回到beginWork
+                - 没产生：进入下一阶段 completeUnitOfWork
+        3. completeUnitOfWork：处理兄弟fiber和父fiber副作用
+- 判断是否有空闲时间
+    - 没有时间：把控制权还给浏览器
+    - 有时间：进入提交阶段
+- 提交阶段：
+    - 根据副作用effects更新DOM
+    - 交换current和workInProgress两个指针
+
+## setState是同步还是异步
+- setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。
+- setState 的“异步”并不是说内部由异步代码实现，其实本身执行的过程和代码都是同步的，只是合成事件和钩子函数的调用顺序在更新之前，导致在合成事件和钩子函数中没法立马拿到更新后的值，形成了所谓的“异步”，当然可以通过第二个参数 setState(partialState, callback) 中的callback拿到更新后的结果。
+- setState 的批量更新优化也是建立在“异步”（合成事件、钩子函数）之上的，在原生事件和setTimeout 中不会批量更新，在“异步”中如果对同一个值进行多次setState，setState的批量更新策略会对其进行覆盖，取最后一次的执行，如果是同时setState多个不同的值，在更新时会对其进行合并批量更新。
 
 ## 简述一下virtual DOM 如何工作
-- 虚拟DOM本质上是JavaScript对象,是对真实DOM的抽象
+- 虚拟DOM本质上是JavaScript对象，是对真实DOM的抽象
 - 状态变更时，记录新树和旧树的差异
 - 最后把差异更新到真正的dom中
 
@@ -145,3 +169,5 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
 - [React 16+版本中为什么用更新生命周期函数？](https://www.zhihu.com/question/278328905)
 - [2019年17道高频React面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4#heading-0)
 - [你真的理解setState吗？](https://zhuanlan.zhihu.com/p/39512941)
+- [React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57#heading-0)
+- [React Fiber架构](https://zhuanlan.zhihu.com/p/37095662)
