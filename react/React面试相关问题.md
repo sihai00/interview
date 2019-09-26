@@ -52,14 +52,14 @@ const ref = React.createRef();
 - 挂载阶段
     - constructor：初始化state和方法绑定
     - getDerivedStateFromProps（静态方法）：返回一个对象来更新 state。用于***state的值在任何时候都取决于 props***
-    - render：组件挂载（插入 DOM 树中）
+    - render
     - componentDidMount：***用于处理副作用（例如请求、动画）***
 - 更新阶段
     - getDerivedStateFromProps（静态方法）：返回一个对象来更新 state。用于***state的值在任何时候都取决于 props***
     - shouldComponentUpdate：判断 React 组件的输出是否受当前 state 或 props 更改的影响。用于***性能优化***，建议使用***PureComponent组件***
         - return true：进行render
         - return false：不进行render
-    - render：组件挂载（插入 DOM 树中）
+    - render
     - getSnapshotBeforeUpdate：返回值作为componentDidUpdate的参数。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）
     - componentDidUpdate：***用于处理副作用（例如请求、动画）***，注意它必须被包裹在一个条件语件里
 - 卸载阶段
@@ -73,7 +73,7 @@ React16分为reconciler阶段与commit阶段。
     - 更新 state 与 props；
     - 生成 Fiber Tree；
     - 调用生命周期钩子；
-    - 通过新旧 vdom 进行 diff 算法，获取 vdom change；
+    - 构建workInProgress tree，标记副作用用于React更新
     - 确定是否需要重新渲染
 - commit阶段（同步）： 更新DOM
     - 如需要，则操作 dom 节点更新；
@@ -126,31 +126,31 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
                 - 没过期：把这个任务丢到下一帧
                 
 ## setState之后发生什么
-- 在React内部的update链表上记录所需更新的任务，在一定的时间内进行批量更新操作
-- 调度阶段（requestIdleCallback）：高优先级任务可打断低优先级任务
-    1. 从update链表上获取一次更新任务（nextUnitOfWork）。处理单个fiber节点作为最小工作单位
-    2. 根据更新任务，找到其根fiber。目的自顶向下逐节点构造 workInProgress tree，标记副作用。
-        1. beginWork：处理child fiber副作用。当前fiber是否需要更新
-            - 不需要：直接把子节点clone过来
+- 在 `updateQueue` 链表上记录所需更新的任务：在一定的时间内进行批量更新操作
+- 调度阶段（`requestIdleCallback`）：高优先级任务可打断低优先级任务
+    1. 从 `updateQueue` 链表上获取一次更新任务（`nextUnitOfWork`）：单个 `fiber` 节点作为最小工作单位
+    2. 根据更新任务，找到其根fiber：自顶向下逐节点构造 `workInProgress tree` 来标记副作用
+        1. 当前fiber是否需要更新（`beginWork`）
+            - 不需要：直接把子节点`clone`过来
             - 需要：
-                - 生成fiber
+                - 生成 `fiber`
                 - 标记更新类型
-                - 更新当前节点状态（props, state, context等）
-                - 调用shouldComponentUpdate()
+                - 更新当前节点状态（`props`、`state`、`context` 等）
+                - 调用 `shouldComponentUpdate` 生命周期
                 - 调用组件实例方法 render() 获得新的子节点，并为子节点创建 Fiber Node（创建过程会尽量复用现有 Fiber Node，子节点增删也发生在这里）
-                - 此节点改变产生的effect合并到父节点中
-        2. 判断是否有空闲时间
+        2. 是否产生child fiber
+            - 产生：把child fiber作为下一个工作单元
+            - 没有产生：进入completeUnitOfWork
+        3. completeUnitOfWork（处理兄弟fiber和父fiber副作用）：把effect list归并到return，并把当前节点的 sibling 作为下一个工作单元
+        4. 判断是否有空闲时间
             - 没有时间：把控制权还给浏览器
-            - 有时间：判断是否产生child fiber
-                - 产生：回到beginWork
-                - 没产生：进入下一阶段 completeUnitOfWork
-        3. completeUnitOfWork：处理兄弟fiber和父fiber副作用
-- 判断是否有空闲时间
-    - 没有时间：把控制权还给浏览器
-    - 有时间：进入提交阶段
+            - 有时间：
+        5. 是否有下一个工作单元
+            - 有：回到beginWork处理下一个工作单元
+            - 无：进入提交阶段
 - 提交阶段：
-    - 根据副作用effects更新DOM
-    - 交换current和workInProgress两个指针
+    1. 根据副作用effects更新DOM
+    2. 交换current和workInProgress两个指针
 
 ## setState是同步还是异步
 - setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。
@@ -162,12 +162,46 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
 - 状态变更时，记录新树和旧树的差异
 - 最后把差异更新到真正的dom中
 
+## 事件
+```typescript jsx
+/**
+ * 这个组件有什么问题。为什么？要如何解决呢？
+ */
+
+class App extends React.Component {
+  state = { search: '' }
+  handleChange = event => {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.setState({
+        search: event.target.value
+      })
+    }, 250);
+  }
+  render() {
+    return (
+      <div>
+        <input type="text" onChange={this.handleChange} />
+        {this.state.search ? <p>Search for: {this.state.search}</p> : null}
+      </div>
+    )
+  }
+}
+
+// 报错，event.target.value不存在
+```
+React 中 event 是一个合成事件，并且是以对象池来实现的。
+当执行事件代码时，React从对象池复用或者创建合成事件，传入事件中
+当执行setTimeout时，由于异步回调函数加入了任务列队。当执行回调函数时，事件已经被React回收了，所以.target.value 引用不会再有效
+
 ## 参考
+- [React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57#heading-0)
+- [React Fiber架构](https://zhuanlan.zhihu.com/p/37095662)
+- [完全理解React Fiber](http://www.ayqy.net/blog/dive-into-react-fiber/)
+- [你真的理解setState吗？](https://zhuanlan.zhihu.com/p/39512941)
+- [React事件机制 - 源码概览（上）](https://juejin.im/post/5bd32493f265da0ae472cc8e#heading-0)
 - [React 常用面试题目与分析](https://zhuanlan.zhihu.com/p/24856035#tipjar)
 - [为何要在componentDidMount里面发送请求？](https://juejin.im/post/5c70e67f6fb9a049ba42326b#heading-0)
 - [那些年，自己没回答上来的react面试题](https://juejin.im/post/5c9b39e2f265da611f1d9b5f#heading-0)
 - [React 16+版本中为什么用更新生命周期函数？](https://www.zhihu.com/question/278328905)
 - [2019年17道高频React面试题及详解](https://juejin.im/post/5d5f44dae51d4561df7805b4#heading-0)
-- [你真的理解setState吗？](https://zhuanlan.zhihu.com/p/39512941)
-- [React Fiber](https://juejin.im/post/5ab7b3a2f265da2378403e57#heading-0)
-- [React Fiber架构](https://zhuanlan.zhihu.com/p/37095662)

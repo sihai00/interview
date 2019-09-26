@@ -53,6 +53,7 @@
 - [immutable](react/immutable/immutable.md)  
 - [Hook](react/Hook.md)  
 - [reselect](react/reselect.md)  
+- [React面试相关问题](react/React面试相关问题.md)  
 
 ## 打包工具
 - [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
@@ -86,6 +87,8 @@
 - [重绘和回流](https://github.com/sihai00/interview/issues/5)   
 - [资源加载优先级Preload和Prefetch](https://github.com/sihai00/interview/issues/11)    
 - [汇总](./性能/汇总.md)    
+
+## 函数式编程
 
 ## 设计模式
 - [基础](./设计模式/基础.md)  

@@ -121,8 +121,8 @@ var Goods = React.createClass({
 - 操作生命周期
 
 应用场景：
-- 日志打点：记录用户行为、性能指标
-- 权限控制：通过是否符合条件来操作渲染
+- 权限控制：通过是否符合条件来操作渲染（属性代理）
+- 性能监控：记录用户行为、性能指标（反向继承）
 
 注意事项：
 - 不要改变原始组件
@@ -143,44 +143,51 @@ var Goods = React.createClass({
 
 ### 3.1 属性代理
 ```typescript jsx
-function proxyHOC(WrappedComponent) {
-  return class extends Component {
-    render() {
-      if (this.props.visible === false) return null
-      const newProps = {
-        ...this.props,
-        a: 1
-      }
-      return (
-        <div>
-          <div>操作渲染</div>
-          <WrappedComponent {...newProps} />
-        </div>
-      )
-    }
-  }
+function withAdminAuth(WrappedComponent) {
+    return class extends React.Component {
+        constructor(props){
+          super(props)
+          this.state = {
+              isAdmin: false,
+          }
+        } 
+        async componentWillMount() {
+            const currentRole = await getCurrentUserRole();
+            this.setState({
+                isAdmin: currentRole === 'Admin',
+            });
+        }
+        render() {
+            if (this.state.isAdmin) {
+                return <Comp {...this.props} />;
+            } else {
+                return (<div>您没有权限查看该页面，请联系管理员！</div>);
+            }
+        }
+    };
 }
 ```
 
 ### 3.2 反向继承
 ```typescript jsx
-function inheritHOC(WrappedComponent) {
-  return class extends WrappedComponent {
-    render() {
-      if (this.props.visible === false) return null
-      const elementsTree = super.render()
-      let newProps = { a: 1 }
-      const props = Object.assign({}, elementsTree.props, newProps)
-      const newElementsTree = React.cloneElement(elementsTree, props, elementsTree.props.children)
-      return (
-        <div>
-          <div>操作渲染</div>
-          { newElementsTree }
-        </div>
-      )
-    }
-  }
+function withTiming(Comp) {
+    return class extends Comp {
+        constructor(props) {
+            super(props);
+            this.start = Date.now();
+            this.end = 0;
+        }
+        componentDidMount() {
+            super.componentDidMount && super.componentDidMount();
+            this.end = Date.now();
+            console.log(`${WrappedComponent.name} 组件渲染时间为 ${this.end - this.start} ms`);
+        }
+        render() {
+            return super.render();
+        }
+    };
 }
+
 ```
 render函数内实际上是调用React.creatElement产生的React元素，所有属性都是不可修改的。所以只能通过React.cloneElement的方法增强组件
 
