@@ -126,10 +126,10 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
                 - 没过期：把这个任务丢到下一帧
                 
 ## setState之后发生什么
-- 在 `updateQueue` 链表上记录所需更新的任务：在一定的时间内进行批量更新操作
-- 调度阶段（`requestIdleCallback`）：高优先级任务可打断低优先级任务
-    1. 从 `updateQueue` 链表上获取一次更新任务（`nextUnitOfWork`）：单个 `fiber` 节点作为最小工作单位
-    2. 根据更新任务，找到其根fiber：自顶向下逐节点构造 `workInProgress tree` 来标记副作用
+- 在 `updateQueue` 链表上记录所需更新的任务`update`：在一定的时间内进行批量更新操作
+- 调度阶段（异步）：高优先级任务可打断低优先级任务
+    1. 从 `updateQueue` 链表上获取一个`update`（`nextUnitOfWork`）：单个 `fiber` 节点作为最小工作单位
+    2. 找到`update`的根`fiber`：自顶向下逐节点构造 `workInProgress tree` 来标记副作用
         1. 当前fiber是否需要更新（`beginWork`）
             - 不需要：直接把子节点`clone`过来
             - 需要：
@@ -137,20 +137,33 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
                 - 标记更新类型
                 - 更新当前节点状态（`props`、`state`、`context` 等）
                 - 调用 `shouldComponentUpdate` 生命周期
-                - 调用组件实例方法 render() 获得新的子节点，并为子节点创建 Fiber Node（创建过程会尽量复用现有 Fiber Node，子节点增删也发生在这里）
-        2. 是否产生child fiber
-            - 产生：把child fiber作为下一个工作单元
-            - 没有产生：进入completeUnitOfWork
-        3. completeUnitOfWork（处理兄弟fiber和父fiber副作用）：把effect list归并到return，并把当前节点的 sibling 作为下一个工作单元
-        4. 判断是否有空闲时间
+                - 调用组件实例方法 `render` 获得新的子节点，并为子节点创建 `Fiber Node`（创建过程会尽量复用现有 `Fiber Node`，子节点增删也发生在这里）
+        2. 是否产生 `child fiber`
+            - 产生：把 `child fiber` 作为下一个工作单元
+            - 没有产生：把 `effect list` 归并到 `return` ，并把当前节点的 `sibling` 作为下一个工作单元（`completeUnitOfWork`）：处理兄弟 `fiber` 和父 `fiber` 副作用
+        4. 判断是否有空闲时间（`requestIdleCallback`）
             - 没有时间：把控制权还给浏览器
-            - 有时间：
+            - 有时间：进入 `5`
         5. 是否有下一个工作单元
-            - 有：回到beginWork处理下一个工作单元
+            - 有：回到 `1` 处理下一个工作单元
             - 无：进入提交阶段
-- 提交阶段：
-    1. 根据副作用effects更新DOM
+- 提交阶段（同步）：
+    1. 处理 `effect list`（包括3种处理：
+        - 更新DOM树
+        - 调用组件生命周期函数
+        - 更新ref等内部状态
     2. 交换current和workInProgress两个指针
+
+## 优先级策略
+用来动态调整任务调度，是工作循环的辅助机制，最先做最重要的事情。
+高优先级的比如键盘输入（希望立即得到反馈），低优先级的比如网络请求，让评论显示出来等等。另外，紧急的事件允许插队
+
+- synchronous：同步执行，首屏（首次渲染）用，要求尽量快，不管会不会阻塞UI线程
+- task：在next tick之前执行
+- animation（`requestAnimationFrame`调度）：下一帧之前执行
+- high（`requestIdleCallback`调度）：在不久的将来立即执行
+- low（`requestIdleCallback`调度）：稍微延迟（100-200ms）执行也没关系
+- offscreen（`requestIdleCallback`调度）：下一次render时或scroll时才执行
 
 ## setState是同步还是异步
 - setState 只在合成事件和钩子函数中是“异步”的，在原生事件和setTimeout 中都是同步的。
