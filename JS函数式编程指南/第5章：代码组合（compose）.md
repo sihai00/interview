@@ -73,3 +73,6 @@ snakeCase(' ABc ')
 // ---  ABC 
 // _ABC_
 ```
+
+## 参考
+- [第5章：代码组合（compose）](https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/ch5.html)
