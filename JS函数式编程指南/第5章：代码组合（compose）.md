@@ -23,7 +23,7 @@ shout2("send in the clowns");
 ```
 
 ## pointfree
-pointfree：不在乎数据结构
+pointfree：不使用所要处理的值，只合成运算过程
 
 ```javascript
 var toUpperCase = function(str) { return str.toUpperCase(); };
