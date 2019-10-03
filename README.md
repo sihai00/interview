@@ -200,7 +200,13 @@
 - [第7章：Hindley-Milner类型签名](./JS函数式编程指南/第7章：Hindley-Milner类型签名.md)
 
 ## JavaScript正则表达式迷你书
-
+- [正则表达式字符匹配攻略](./JavaScript正则表达式迷你书/01正则表达式字符匹配攻略.md)
+- [正则表达式位置匹配攻略](./JavaScript正则表达式迷你书/07正则表达式编程.md)
+- [正则表达式括号的作用](./JavaScript正则表达式迷你书/03正则表达式括号的作用.md)
+- [正则表达式回溯法原理](./JavaScript正则表达式迷你书/04正则表达式回溯法原理.md)
+- [正则表达式的拆分](./JavaScript正则表达式迷你书/05正则表达式的拆分.md)
+- [正则表达式的构建](./JavaScript正则表达式迷你书/06正则表达式的构建.md)
+- [正则表达式编程](./JavaScript正则表达式迷你书/07正则表达式编程.md)
 
 ## 推荐
 - [冴羽的博客](https://github.com/mqyqingfeng/Blog)  
