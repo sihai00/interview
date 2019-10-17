@@ -21,7 +21,7 @@ Function.prototype.call2 = function(context) {
   context.fn = this
   
   var args = []
-  for (var i = 0; i < arguments.length; i++) {
+  for (var i = 1; i < arguments.length; i++) {
     args.push('arguments[' + i + ']')
   }
   
@@ -51,7 +51,7 @@ Function.prototype.apply2 = function(context, arr) {
     result = eval('context.fn()')
   } else {
     var args = []
-    for (var i = 0; i < arr.length; i++) {
+    for (var i = 1; i < arr.length; i++) {
       args.push('arr[' + i + ']')
     } 
     result = eval('context.fn(' + arr + ')')
