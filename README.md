@@ -46,14 +46,17 @@
 - [监听中文输入](./html/监听中文输入/监听中文输入.md)  
 
 ## react
-- [Flux、Redux、Redux-saga、Dva、MobX](https://github.com/sihai00/interview/issues/7)    
-- [手写Redux](https://github.com/sihai00/interview/issues/13)  
-- [手写双向绑定](https://github.com/sihai00/interview/issues/28)  
+- [Flux、Redux、Redux-saga、Dva、MobX](./react/Flux、Redux、Redux-saga、Dva、MobX.md)   
+- [React面试相关问题](./react/React面试相关问题.md)  
+- [Redux](./react/Redux/Redux.md)  
+- [Router](./react/Router.md)  
+- [双向绑定](./react/双向绑定/双向绑定.md)  
 - [Mixin、HOC、Render-Props、Hook](react/Mixin、HOC、Render-Props、Hook.md)  
 - [immutable](react/immutable/immutable.md)  
 - [Hook](react/Hook.md)  
 - [reselect](react/reselect.md)  
-- [React面试相关问题](react/React面试相关问题.md)  
+- [路由缓存](react/路由缓存.md)  
+- [通信](react/通信.md)  
 
 ## 打包工具
 - [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
