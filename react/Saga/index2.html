@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<button id="btn">click</button>
+<div id="result"></div>
+</body>
+<script>
+  function channel() {
+    let taker;
+
+    function take(cb) {
+      taker = cb;
+    }
+
+    function put(input) {
+      if (taker) {
+        const tempTaker = taker;
+        taker = null;
+        tempTaker(input);
+      }
+    }
+
+    return {
+      put,
+      take,
+    };
+  }
+
+  const chan = channel();
+
+  function take() {
+    return {
+      type: 'take'
+    };
+  }
+
+  function* takeEvery(worker) {
+    yield fork(function* () {
+      while(true) {
+        const action = yield take();
+        worker(action);
+      }
+    });
+  }
+
+  function runTakeEffect(effect, cb) {
+    chan.take(input => {
+      cb(input);
+    });
+  }
+
+  function* mainSaga() {
+    yield takeEvery(action => {
+      $result.innerHTML = action;
+    });
+  }
+
+  function fork(cb) {
+    return {
+      type: 'fork',
+      fn: cb,
+    };
+  }
+
+  function runForkEffect(effect, cb) {
+    task(effect.fn || effect);
+    cb();
+  }
+
+  function task(iterator) {
+    const iter = typeof iterator === 'function' ? iterator() : iterator;
+    function next(args) {
+      const result = iter.next(args);
+      console.log(result, 'result')
+      if (!result.done) {
+        const effect = result.value;
+
+        // 判断effect是否是iterator
+        if (typeof effect[Symbol.iterator] === 'function') {
+          runForkEffect(effect, next);
+        } else if (effect.type) {
+          switch (effect.type) {
+            case 'take':
+              runTakeEffect(effect, next);
+              break;
+            case 'fork':
+              runForkEffect(effect, next);
+              break;
+            default:
+          }
+        }
+      }
+    }
+    next();
+  }
+
+  task(mainSaga);
+
+  let i = 0;
+  var $btn = document.querySelector('#btn')
+  var $result = document.querySelector('#result')
+  $btn.addEventListener('click', () => {
+    const action =`action data${i++}`;
+    chan.put(action);
+  }, false);
+
+</script>
+</html>

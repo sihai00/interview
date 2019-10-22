@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">click</button>
+</body>
+<script>
+  function channel() {
+    let taker;
+
+    function take(cb) {
+      taker = cb;
+    }
+
+    function put(input) {
+      if (taker) {
+        const tempTaker = taker;
+        taker = null;
+        tempTaker(input);
+      }
+    }
+
+    return {
+      put,
+      take,
+    };
+  }
+
+  const chan = channel();
+
+  function take() {
+    return {
+      type: 'take'
+    };
+  }
+
+  function* mainSaga() {
+    const action = yield take();
+    console.log(action);
+    const action1 = yield take();
+    console.log(action1);
+  }
+
+  function runTakeEffect(effect, cb) {
+    chan.take(input => {
+      cb(input);
+    });
+  }
+
+  function task(iterator) {
+    const iter = iterator();
+    function next(args) {
+      const result = iter.next(args);
+      console.log(result)
+      if (!result.done) {
+        const effect = result.value;
+        if (effect.type === 'take') {
+          runTakeEffect(result.value, next);
+        }
+      }
+    }
+    next();
+  }
+
+  task(mainSaga);
+
+  let i = 0;
+  var $btn = document.querySelector('#btn')
+  $btn.addEventListener('click', () => {
+    const action =`action data${i++}`;
+    chan.put(action);
+  }, false);
+
+</script>
+</html>
