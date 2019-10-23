@@ -145,7 +145,7 @@
 ## 软技能
 - [简历](./软技能/简历.md)
 
-## 精度 ECMAScript 6 入门 - 阮一峰
+## 精读 ECMAScript 6 入门 - 阮一峰
 - [02let和const命令](./精读阮一峰ECMAScript6/02let和const命令.md)  
 - [03变量的解构赋值](./精读阮一峰ECMAScript6/03变量的解构赋值.md)  
 - [04字符串的扩展](./精读阮一峰ECMAScript6/04字符串的扩展.md)  

@@ -40,28 +40,6 @@
       type: 'take'
     };
   }
-
-  function* takeEvery(worker) {
-    yield fork(function* () {
-      while(true) {
-        const action = yield take();
-        worker(action);
-      }
-    });
-  }
-
-  function runTakeEffect(effect, cb) {
-    chan.take(input => {
-      cb(input);
-    });
-  }
-
-  function* mainSaga() {
-    yield takeEvery(action => {
-      $result.innerHTML = action;
-    });
-  }
-
   function fork(cb) {
     return {
       type: 'fork',
@@ -73,8 +51,28 @@
     task(effect.fn || effect);
     cb();
   }
+  function runTakeEffect(effect, cb) {
+    chan.take(input => {
+      cb(input);
+    });
+  }
+
+  function* takeEvery(worker) {
+    yield fork(function* () {
+      while(true) {
+        const action = yield take();
+        worker(action);
+      }
+    });
+  }
+  function* mainSaga() {
+    yield takeEvery(action => {
+      $result.innerHTML = action;
+    });
+  }
 
   function task(iterator) {
+    console.log(typeof iterator === 'function')
     const iter = typeof iterator === 'function' ? iterator() : iterator;
     function next(args) {
       const result = iter.next(args);
@@ -84,8 +82,10 @@
 
         // 判断effect是否是iterator
         if (typeof effect[Symbol.iterator] === 'function') {
+          console.log(1)
           runForkEffect(effect, next);
         } else if (effect.type) {
+          console.log(2, effect.type)
           switch (effect.type) {
             case 'take':
               runTakeEffect(effect, next);
@@ -102,7 +102,6 @@
   }
 
   task(mainSaga);
-
   let i = 0;
   var $btn = document.querySelector('#btn')
   var $result = document.querySelector('#result')

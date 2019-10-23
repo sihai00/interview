@@ -33,6 +33,7 @@ Compiler 代表了整个 Webpack 从启动到关闭的生命周期，而 Compila
 - Compilation：专业解析。包含了当前的模块资源、编译生成资源、变化的文件等
 
 ## loader使用
+webpack 可以使用 loader 来预处理文件。这允许你打包除 JavaScript 之外的任何静态资源
 ```javascript
 const loaderUtils = require("loader-utils");
 
@@ -68,6 +69,7 @@ module.exports = async function(content){
 ```
 
 ## plugin
+plugin为webpack提供各种功能
 原理：
 1. Webpack 启动后，在读取配置的过程中会先执行 new BasicPlugin(options) 初始化一个 BasicPlugin 获得其实例。 
 2. 在初始化 compiler 对象后，再调用 basicPlugin.apply(compiler) 给插件实例传入 compiler 对象。 
