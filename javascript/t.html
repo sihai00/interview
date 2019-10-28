@@ -13,13 +13,13 @@ aaaa
 <script>
   function require(p){
     var path = require.resolve(p);
+    console.log(path, 'path')
     var mod = require.modules[path];
     if (!mod) throw new Error('failed to require "' + p + '"');
     if (!mod.exports) {
       mod.exports = {};
       mod.call(mod.exports, mod, mod.exports, require.relative(path));
     }
-    console.log(mod, 'mod')
     return mod.exports;
   }
 
@@ -54,7 +54,7 @@ aaaa
       return require(path.join('/'));
     };
   };
-  debugger
+  // debugger
 
   require.register("./foo.js", function(module, exports, require){
     module.exports = function(x) {
@@ -62,7 +62,6 @@ aaaa
     };
   });
   var foo = require("./foo.js");
-  console.log(foo)
   foo("Hi");
 </script>
 
