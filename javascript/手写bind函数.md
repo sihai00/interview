@@ -19,7 +19,7 @@ function man(name, age) {
 
 man.prototype.friend = 'kevin';
 
-var bindFoo = man.bind(foo, 'daisy');
+var bindFoo = man.bind(obj, 'daisy');
 
 var obj = new bindFoo('18');
 // undefined
@@ -64,7 +64,7 @@ function man(name, age) {
 
 man.prototype.friend = 'kevin';
 
-var bindFoo = man.bind(foo, 'daisy');
+var bindFoo = man.bind(obj, 'daisy');
 
 var obj = new bindFoo('18');
 ```

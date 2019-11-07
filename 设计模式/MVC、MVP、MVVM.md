@@ -16,6 +16,7 @@
 
 ## MVP
 模型（Model）、视图（View）和 Presenter
+
 Model和Presenter是双向通信，View和Presenter是双向通信，Model和View不通信
 
 优点：

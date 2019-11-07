@@ -11,6 +11,13 @@ activating： 在这个状态下没有被其他的 Service Worker 控制的客�
 activated： 在这个状态会处理activate事件回调，并提供处理功能性事件：fetch、sync、push。（在acitive的事件回调中，可以调用self.clients.claim()）
 redundant：废弃状态，这个状态表示一个sw的使命周期结束
 
+主要事件：
+- install：顾名思义，Service Worker安装时触发，通常在这个时机缓存文件
+- activate：顾名思义，Service Worker激活时触发，通常在这个时机做一些重置的操作，例如处理旧版本Service Worker的缓存
+- fetch：顾名思义，浏览器发起HTTP请求时触发，通常在这个事件的回调函数中匹配缓存，是最常用的事件
+- push：顾名思义，和推送通知功能相关，没有相关需求的话可以不去了解
+- sync：顾名思义，和后台同步功能相关，没有相关需求的话可以不去了解
+
 ## 代码
 ```javascript
 //在页面代码里面监听onload事件，使用sw的配置文件注册一个service worker
@@ -87,4 +94,5 @@ self.addEventListener('fetch', function (event) {
 });
 ```
 ## 参考
-[Service Worker离线缓存实践](https://juejin.im/post/5d47f5c45188255d2a78af38)
+- [Service Worker离线缓存实践](https://juejin.im/post/5d47f5c45188255d2a78af38)
+- [Service Worker 从入门到出门](https://juejin.im/post/5d26aec1f265da1ba56b47ea)

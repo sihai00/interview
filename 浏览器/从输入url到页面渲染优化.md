@@ -65,22 +65,30 @@
         - opacity
     - 避免table布局：使用弹性布局替代
 4. 首屏优化
+    - 单页应用
+        - 按需加载：react-loadable、react.lazy + react.Suspense
+        - 分包：基础库、提取公共代码
+    - 压缩：减少资源文件的大小
+    - 图片
+        - 压缩
+        - base64或者svg内嵌到html中
+        - 图标字体
+        - 雪碧图
+        - 懒加载：原理是当componentDidMount后渲染图片（react-lazyload）
+    - CDN
+    - 服务端渲染
+    - 次屏逻辑延后处理和执行。例如埋点
+5. 交互优化
+    - 预加载
+    - 懒加载
+        - ajax请求渲染：例如多页列表加载
+        - setTimeout渲染：延迟渲染不重要部分
+    - 防抖
+    - 节流
     - 骨架屏
         - 图片：base64、svg
         - css占位
         - 第三方插件：react-content-loader 
-    - 懒加载
-        - ajax请求渲染：例如多页列表加载
-        - setTimeout渲染：延迟渲染不重要部分
-    - 单页应用
-        - 按需加载：react-loadable 、react.lazy + react.Suspense
-        - 分包：基础库、提取公共代码
-    - 服务端渲染
-5. 交互优化
-    - 预加载
-    - 懒加载
-    - 防抖
-    - 节流
     - web worker
 6. 渲染优化
     - 切片：requestAnimationFrame

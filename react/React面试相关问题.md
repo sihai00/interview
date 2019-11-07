@@ -114,6 +114,12 @@ state的值在任何时候都取决于 props，并且跟生命周期有关系才
 - 比如，可以记录开始更新视图的时间var now = new Date - 0，假如我们更新试图自定义需要100毫秒，那么定义结束时间是var deadline = new Date + 100 ,所以每次更新一部分视图，就去拿当前时间new Date<deadline做判断，如果没有超过deadline就更新视图，超过了，就进入下一个更新阶段
 
 4. 如何调度时间才能保证流畅
+- requestAnimationFrame：浏览器重绘之前调用
+    - 计算每一帧时间
+    - 计算过期时间：当前时间 + 每一帧时间
+- MessageChannel：浏览器重绘完后触发，优先级比较高
+    - 判断过期时间与当前时间是否过期
+
 使用requestIdleCallback或者模拟。作用是在浏览器空闲时间执行React切片任务。
 - 计算任务的过期时间expriationTime（高优先级的任务会打断低优先级任务）。判断任务是否过期
     - 过期：无须调度，直接调用 port.postMessage(undefined)，这样就能在渲染后马上执行过期任务了
