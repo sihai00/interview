@@ -61,6 +61,12 @@ caches.open(CACHE_KEY).then((cache) => {
 ```
 
 ## 2.Service worker
+特点：
+- 基于https
+- 多线程，会开辟新的内存空间
+- 可多页面共享
+
+流程：
 1. 注册
 2. 安装
 3. 请求
@@ -124,7 +130,7 @@ self.addEventListener('fetch', function(event) {
               return response;
             }
 
-            // 如果成功，该 response 一是要拿给浏览器渲染，而是要进行缓存。
+            // 如果成功，该 response 一是要拿给浏览器渲染，二是要进行缓存。
             // 不过需要记住，由于 caches.put 使用的是文件的响应流，一旦使用，
             // 那么返回的 response 就无法访问造成失败，所以，这里需要复制一份。
             var responseToCache = response.clone();
@@ -147,8 +153,8 @@ self.addEventListener('fetch', function(event) {
     1. 新的SW.js 文件下载，触发install事件
     2. 旧的 SW 还在工作，新的 SW 进入 waiting 状态
     3. 当打开的页面关闭时，旧的 SW 则会被 kill 掉。新的 SW 就开始接管页面的缓存资源
-    4. 一旦新的 SW 接管，则会触发 activate 事件（注意：以前版本 SW.js 缓存文件没有被删除，可以在此阶段执行删除）
-- 资源更新：在 fetch 阶段使用 caches 进行缓存即可
+    4. 一旦新的 SW 接管，则会触发 activate 事件（***注意：以前版本 SW.js 缓存文件没有被删除，可以在此阶段执行删除***）
+- 资源更新
 
 ```js
 // SW更新，在activate删除旧的缓存资源
@@ -184,6 +190,7 @@ self.addEventListener('install', function(event) {
   );
 });
 
+// install的时候更新
 self.addEventListener('install', function(event) {
   var now = Date.now();
   // 事先设置好需要进行更新的文件路径
@@ -223,4 +230,22 @@ self.addEventListener('install', function(event) {
     })
   );
 });
+
+// 安装的时候更新
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.open('mysite-dynamic').then(function(cache) {
+      return cache.match(event.request).then(function(response) {
+        var fetchPromise = fetch(event.request).then(function(networkResponse) {
+          cache.put(event.request, networkResponse.clone());
+          return networkResponse;
+        })
+        return response || fetchPromise;
+      })
+    })
+  );
+});
 ```
+
+## 参考
+- [Service Worker 全面进阶](https://juejin.im/post/591028fc2f301e006c291c4b#heading-6)
