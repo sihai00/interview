@@ -57,6 +57,7 @@
 - [reselect](react/reselect.md)  
 - [路由缓存](react/路由缓存.md)  
 - [通信](react/通信.md)  
+- [react-redux](react/react-redux.md)  
 
 ## 打包工具
 - [babel的es6转化为es5原理](https://github.com/sihai00/interview/issues/26)  
@@ -66,6 +67,7 @@
 - [Webpack原理](./打包工具/Webpack原理.md)  
 - [webpack输出文件分析](./打包工具/webpack输出文件分析.md)  
 - [webpack优化](./打包工具/webpack优化.md)  
+- [Tree-shaking](./打包工具/Tree-shaking.md)  
 
 ## 浏览器
 - [浏览器和Node事件循环的区别](https://github.com/sihai00/interview/issues/8)      
@@ -79,6 +81,7 @@
 - [图片格式](./浏览器/图片格式/图片格式.md)  
 - [前端路由](./浏览器/前端路由/前端路由.md)  
 - [ServiceWorker](./浏览器/ServiceWorker/ServiceWorker.md)  
+- [PWA](./浏览器/PWA.md)  
 
 ## 网络
 - [CDN](./网络/CDN/CDN.md)
@@ -90,6 +93,11 @@
 - [重绘和回流](https://github.com/sihai00/interview/issues/5)   
 - [资源加载优先级Preload和Prefetch](https://github.com/sihai00/interview/issues/11)    
 - [汇总](./性能/汇总.md)    
+
+## Git
+- [GitFlow开发流程](./Git/GitFlow开发流程.md)
+- [常用操作](./Git/常用操作.md)
+- [版本控制系统](./Git/版本控制系统.md)
 
 ## 函数式编程
 - [基础](./函数式编程/基础.md)
@@ -146,6 +154,7 @@
 - [云服务基础](./项目/云服务基础.md)  
 - [异常上报与性能监控](./项目/异常上报与性能监控/异常上报与性能监控.md)  
 - [高并发架构](./项目/高并发架构/高并发架构.md)  
+- [BS架构和CS架构](./项目/BS架构和CS架构/BS架构和CS架构.md)  
 
 ## 软技能
 - [简历](./软技能/简历.md)
