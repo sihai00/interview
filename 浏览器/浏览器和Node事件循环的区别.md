@@ -15,12 +15,12 @@
 Node使用libuv（实现 Node.js 事件循环和平台的所有异步行为的 C 函数库）暴露的API实现事件循环机制
 
 ![Node](https://user-images.githubusercontent.com/20101525/53734427-eba9e880-3ebe-11e9-8511-eb4948e336ae.png)
-- timers 阶段：本阶段执行已经安排的 setTimeout() 和 setInterval() 的回调函数。（**poll空闲时执行**）
-- I/O callbacks 阶段：执行延迟到下一个循环迭代的 I/O 回调。
-- idle, prepare 阶段：仅系统内部使用。
-- poll 阶段：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，它们由计时器和 setImmediate() 排定的之外），其余情况 node 将在此处阻塞。
+- timers 阶段：本阶段执行已经安排的 setTimeout() 和 setInterval() 的回调函数（**poll空闲时执行**）
+- I/O callbacks 阶段：执行延迟到下一个循环迭代的 I/O 回调
+- idle, prepare 阶段：仅系统内部使用
+- poll 阶段：检索新的 I/O 事件。执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，它们由计时器和 setImmediate() 排定的之外），其余情况 node 将在此处阻塞
 - check 阶段：setImmediate() 回调函数在这里执行。（**poll完成时执行**）
-- close callbacks 阶段：一些准备关闭的回调函数，如：socket.on('close', ...)。
+- close callbacks 阶段：一些准备关闭的回调函数，如：socket.on('close', ...)
 - **process.nextTick**：独立于 Event Loop 之外的队列。当每个阶段完成后***立即执行***
 
 poll 轮询阶段流程：
@@ -60,7 +60,7 @@ async function async1(){
     console.log('async1 start')
     await async2()
     console.log('async1 end')
-  }
+}
 async function async2(){
     console.log('async2')
 }
