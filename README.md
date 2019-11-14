@@ -6,7 +6,6 @@
 - [[] == ![] 输出什么？](https://github.com/sihai00/interview/issues/1)  
 - [箭头函数和普通函数的区别？](https://github.com/sihai00/interview/issues/2)  
 - [this的指向](https://github.com/sihai00/interview/issues/3)  
-- [观察者模式和订阅-发布模式的区别](https://github.com/sihai00/interview/issues/6)  
 - [前端模块化](https://github.com/sihai00/interview/issues/9)  
 - [实现flat函数](https://github.com/sihai00/interview/issues/12)  
 - [伪数组和push方法](https://github.com/sihai00/interview/issues/17)  
@@ -131,6 +130,7 @@
 - [原型模式](./设计模式/原型模式.md)  
 - [构造函数模式](./设计模式/构造函数模式.md)  
 - [MVC、MVP、MVVM](./设计模式/MVC、MVP、MVVM.md)  
+- [观察者模式和订阅-发布模式的区别](https://github.com/sihai00/interview/issues/6)  
 
 ## 算法
 - [二叉树](算法/二叉树/二叉树.md)  
